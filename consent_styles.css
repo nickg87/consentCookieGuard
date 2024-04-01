@@ -57,9 +57,6 @@
     }
     #___cookieConsent__footerButtons {
         flex-direction: column;
-        button {
-            width: unset;
-        }
     }
 }
 
@@ -212,6 +209,7 @@
     color:white;
     outline: none;
     border-radius: 5px;
+    width: unset !important;
 }
 .___cookieConsent__consentButton.___cookieConsent__borderOnly {
     border: 1px solid var(--WIDGET_MAIN_COLOR);
