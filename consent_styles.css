@@ -222,8 +222,6 @@
     color:white;
     cursor: pointer;
     appearance: none; /* Remove default appearance */
-    margin: 0; /* Reset margin */
-    padding: 0; /* Reset padding */
     font-family: inherit; /* Inherit font family */
     font-size: inherit; /* Inherit font size */
     outline: none; /* Remove outline */
