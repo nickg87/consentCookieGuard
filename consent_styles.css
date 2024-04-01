@@ -57,6 +57,9 @@
     }
     #___cookieConsent__footerButtons {
         flex-direction: column;
+        button {
+            width: unset;
+        }
     }
 }
 
