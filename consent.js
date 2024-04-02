@@ -453,9 +453,9 @@ window.cg__displayCookieConsentModal = () => {
 
     // Create cookie consent modal
     const modal = document.createElement('div');
+    modal.id = "___cookieConsent__ModalConsent";
     modal.innerHTML = `
-        <div id="___cookieConsent__ModalConsent">
-            <div id="___cookieConsent__ModalWrapper">
+        <div id="___cookieConsent__ModalWrapper">
             <h2 id="___cookieConsent__Title">Folosim cookies</h2>
             <div id="___cookieConsent__TabButtons">
                 <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Consent')" id="___cookieConsent__ConsentTabButton">${consimtamantText?.title}</div>
@@ -479,14 +479,13 @@ window.cg__displayCookieConsentModal = () => {
             </div>
             <div id="___cookieConsent__footerButtons">
                 ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ?
-        SIMPLE_LIST_BUTTONS :
-        `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
-        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">Accepta selecția</button>
-        <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">Accepta toate</button>`
-        }        
-    </div>
+                SIMPLE_LIST_BUTTONS :
+                `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
+                <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">Accepta selecția</button>
+                <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">Accepta toate</button>`
+                }        
+            </div>
         </div>
-      </div>
     `;
     document.body.appendChild(modal);
     //document.querySelector('h2#___cookieConsent__Title').insertAdjacentHTML('beforeend', svgCCookie);
