@@ -37,8 +37,8 @@ if (typeof window.gtag === 'function') {
         ad_personalization: "denied",
         analytics_storage: "denied",
         personalization_storage: "denied",
-        functionality_storage: "denied",
-        security_storage: "denied"
+        functionality_storage: "granted",
+        security_storage: "granted"
     });
 } else {
     console.warn('window.gtag is not defined or is not a function.');
