@@ -496,6 +496,16 @@ window.cg__displayCookieConsentModal = () => {
     //document.querySelector('h2#___cookieConsent__Title').insertAdjacentHTML('beforeend', svgCCookie);
     // Open the Consent tab by default
     window.cg__showTab('___cookieConsent__Consent');
+    // Scroll to the bottom of the div
+
+    setTimeout(() => {
+        let consentTab = document.getElementById('___cookieConsent__ConsentTab');
+        consentTab.scrollTo({
+            top: consentTab.scrollHeight,
+            behavior: 'smooth'
+        });
+    }, 800); // Adjust the delay as needed
+
 }
 
 // Function to close cookie consent modal
