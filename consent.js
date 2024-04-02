@@ -567,7 +567,7 @@ window.cg__acceptSelectionCookies = () => {
 
 // Function to deny all cookies
 window.cg__denyAllCookies = () => {
-    window.cg__setCookieConsentToLocalStorage(false);
+    window.cg__setCookieConsentToLocalStorage(true);
     window.cg__setCookieSendConsentToLocalStorage(false);
     window.cg__denyOrAllowAllCookieCategorySession(false);
     window.cg__send_gtmConsentDataObject();
