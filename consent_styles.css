@@ -253,8 +253,8 @@
 
 @media screen and (max-width: 768px) {
     #___cookieConsent__Wrapper, #___cookieConsent__AboutTab div, #___cookieConsent__ConsentTab {
-        max-height:40vh;
-        min-height: 320px;
+        max-height: 32vh;
+        min-height: 20vh;
     }
 }
 
