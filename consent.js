@@ -14,14 +14,35 @@ const COOKIE_CONSENT_GOOGLE_PARTNER = {
     ad_user_data: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
     ad_personalization: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
     analytics_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+    personalization_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
     functionality_storage: "granted",
-    personalization_storage: "granted"
+    security_storage: "granted"
 };
 
 const PARTNER_EXCEPTIONS = [
     'functionality_storage',
-    'personalization_storage'
+    'security_storage'
 ];
+
+
+// Define dataLayer and the gtag function.
+window.dataLayer = window.dataLayer || [];
+
+// Set default consent to 'denied' as a placeholder
+// Determine actual values based on your own requirements
+if (typeof window.gtag === 'function') {
+    window.gtag('consent', 'default', {
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+        analytics_storage: "denied",
+        personalization_storage: "denied",
+        functionality_storage: "denied",
+        security_storage: "denied"
+    });
+} else {
+    console.warn('window.gtag is not defined or is not a function.');
+}
 
 const COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED = {
     necessary: true,
@@ -71,22 +92,6 @@ const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" fill="#000" height="30px" widt
                         </svg>`;
 
 
-// Define dataLayer and the gtag function.
-window.dataLayer = window.dataLayer || [];
-
-// Set default consent to 'denied' as a placeholder
-// Determine actual values based on your own requirements
-if (typeof window.gtag === 'function') {
-    window.gtag('consent', 'default', {
-        'analytics': "denied",
-        'analytics_storage': "denied",
-        'ad_storage': "denied",
-        'ad_user_data': "denied",
-        'ad_personalization': "denied"
-    });
-} else {
-    console.warn('window.gtag is not defined or is not a function.');
-}
 
 
 // Check if the user has consented to cookies
