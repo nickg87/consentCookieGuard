@@ -555,7 +555,7 @@ window.cg__displayCookieDetails = () => {
         // Create HTML for the cookie details and add it to the cookieDetailsHtml variable
         cookieDetailsHtml += '<b>Cookie Name:</b> ' + name + '<br>';
         cookieDetailsHtml += '<b>Value:</b> ' + value + '<br>';
-        cookieDetailsHtml += '<b>Type:</b> ' + type + '<br><br>';
+        //cookieDetailsHtml += '<b>Type:</b> ' + type + '<br><br>';
     });
 
     // Display the cookie details in the Details tab
