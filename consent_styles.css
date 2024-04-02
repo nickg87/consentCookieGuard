@@ -212,8 +212,8 @@
     width: unset !important;
 }
 .___cookieConsent__consentButton.___cookieConsent__borderOnly {
-    border: 1px solid var(--WIDGET_MAIN_COLOR);
-    color: var(--WIDGET_MAIN_COLOR);
+    border: 1px solid var(--WIDGET_SECOND_COLOR);
+    color: var(--WIDGET_SECOND_COLOR);
     background-color: unset !important;
 }
 .___cookieConsent__consentButton:hover, .___cookieConsent__borderOnly:hover {
@@ -221,11 +221,12 @@
     border: 1px solid var(--WIDGET_SECOND_COLOR);
     color:white;
     cursor: pointer;
-    appearance: none; /* Remove default appearance */
-    font-family: inherit; /* Inherit font family */
-    font-size: inherit; /* Inherit font size */
-    outline: none; /* Remove outline */
-    font-weight: 600 !important;
+    /*appearance: none; !* Remove default appearance *!*/
+    /*font-family: inherit; !* Inherit font family *!*/
+    /*outline: none; !* Remove outline *!*/
+    /*font-size: 1rem;*/
+    /*font-weight: 600;*/
+    /*letter-spacing: normal;*/
 }
 
 #___cookieConsent__TabContent {

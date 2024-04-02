@@ -426,8 +426,8 @@ window.cg__displayCookieConsentModal = () => {
         </label>
     </div>`;
     const EXTENDED_LIST_BUTTONS = `
-        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__allowAllCookies()">Accepta toate</button>
         <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
+        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__allowAllCookies()">Accepta toate</button>
     `;
 
     const SIMPLE_LIST = `
@@ -478,8 +478,12 @@ window.cg__displayCookieConsentModal = () => {
                 </div>
             </div>
             <div id="___cookieConsent__footerButtons">
-                ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? SIMPLE_LIST_BUTTONS : EXTENDED_LIST_BUTTONS}
-                <button class="___cookieConsent__consentButton" onclick="window.cg__acceptSelectionCookies()">Accepta selecția</button>
+                ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ?
+        SIMPLE_LIST_BUTTONS :
+        `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
+        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">Accepta selecția</button>
+        <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">Accepta toate</button>`
+        }        
     </div>
         </div>
       </div>
