@@ -215,6 +215,7 @@
     border: 1px solid var(--WIDGET_SECOND_COLOR);
     color: var(--WIDGET_SECOND_COLOR);
     background-color: unset !important;
+    opacity:.55;
 }
 .___cookieConsent__consentButton:hover, .___cookieConsent__borderOnly:hover {
     background-color:  var(--WIDGET_SECOND_COLOR) !important;
