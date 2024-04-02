@@ -7,7 +7,7 @@ const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
 const WIDGET_MAIN_COLOR = '#2f9d08';
 const WIDGET_SECOND_COLOR = '#202020';
 const COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE = false;
-const COOKIE_CONSENT_ALLOW_ALL = false;
+const COOKIE_CONSENT_ALLOW_ALL = true;
 
 const COOKIE_CONSENT_GOOGLE_PARTNER = {
     ad_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
