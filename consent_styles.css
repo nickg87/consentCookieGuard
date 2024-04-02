@@ -31,20 +31,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 0;
-    margin: 0;
+    padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.5); /* Add shadow */
     width:50%;
     max-width: 800px !important;
     font-family: 'Roboto', sans-serif;
     z-index:var(--CONSENT_MODAL_Z_INDEX);
-}
-
-#___cookieConsent__ModalWrapper {
-    display: block;
-    width: calc(100% - 40px);
-    padding: 20px;
 }
 
 /* Media query for screens with maximum width of 768px (typical for mobile devices) */
@@ -56,8 +49,8 @@
         left: 0;
         width: 100%; /* Full width of the screen */
         height: auto;
-        max-height: 80vh;
-        border-radius: 0;
+        max-height: 80%;
+        border-radius: 0px;
         box-shadow: none; /* remove shadow */
         overflow: auto;
         transform: none; /* Remove the centering transform */
@@ -174,23 +167,11 @@
 }
 
 
-#___cookieConsent__TabButtons {
+#___cookieConsent__TabButtons, #___cookieConsent__footerButtons {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping to next row if necessary */
-    justify-content: space-between; /* Or any other appropriate value */
+    justify-content: space-around;
 }
-
-#___cookieConsent__footerButtons {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(48%, 1fr)); /* Adjust min and max width as needed */
-    gap: 0.5rem; /* Adjust gap between buttons */
-}
-@media screen and (min-width: 1301px) {
-    #___cookieConsent__footerButtons {
-        grid-template-columns: repeat(auto-fit, minmax(30%, 1fr)); /* Adjust min and max width as needed */
-    }
-}
-
 #___cookieConsent__footerButtons {gap:1rem; margin-top:1rem}
 .___cookieConsent__Tab {
     font-size: 1rem;
@@ -213,7 +194,6 @@
     border-bottom: none;
 }
 .___cookieConsent__consentButton {
-    margin: 0 !important;
     font-size: 1rem;
     font-weight: 600;
     letter-spacing: normal;
@@ -229,17 +209,8 @@
     color:white;
     outline: none;
     border-radius: 5px;
-    width: 100%;
-    margin-bottom: 10px;
+    width: unset !important;
 }
-@media screen and (max-width: 1300px) {
-    .___cookieConsent__consentButton:last-child {
-        width: 100%;
-        grid-column: 1 / -1;
-    }
-}
-
-
 .___cookieConsent__consentButton.___cookieConsent__borderOnly {
     border: 1px solid var(--WIDGET_SECOND_COLOR);
     color: var(--WIDGET_SECOND_COLOR);
