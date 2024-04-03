@@ -623,8 +623,8 @@ window.cg__showCookieConsentModal = () => {
 }
 
 // Function to show modal from button
-// Function to show modal from button
 window.cg__checkClientToken = async () => {
+    let isValid = false;
     console.log('token versiunea 2!');
     let tryThis = document.getElementById("cookieGuard");
     if (tryThis) {
@@ -640,29 +640,42 @@ window.cg__checkClientToken = async () => {
                 throw new Error('Failed to fetch JSON');
             }
             const data = await response.json();
+            console.log(response);
+            console.log(data);
 
             // Check if the token exists in the JSON and has a valid property
-            if (data[token] && data[token].valid) {
+            if (data[token] && data[token].valid === true) {
                 console.log('Token is present and valid');
+                isValid = true;
             } else {
+                isValid = false;
                 console.log('Token is either not present or not valid');
             }
         } catch (error) {
+            isValid = false;
             console.error('Error fetching or parsing JSON:', error);
         }
     }
+    return isValid;
 }
 
 // Check if user has already consented to cookies
 window.onload = () => {
-    window.cg__checkClientToken();
-    window.cg__displayCookieConsentButton();
-    if (!window.cg__hasConsentedToCookies()) {
-        window.cg__displayCookieConsentModal();
-        window.cg__addCustomFontForCookieConsent();
-    }
-    window.cg__initiateCookieCategorySession();
-    setTimeout(() => {
-        window.cg__checkCookieCategorySession();
-    }, 500); // Adjust the delay as needed
+    window.cg__checkClientToken().then(isClientTokenValid => {
+        console.log('isClientTokenValid');
+        console.log(isClientTokenValid);
+        if (isClientTokenValid) {
+            window.cg__displayCookieConsentButton();
+            if (!window.cg__hasConsentedToCookies()) {
+                window.cg__displayCookieConsentModal();
+                window.cg__addCustomFontForCookieConsent();
+            }
+            window.cg__initiateCookieCategorySession();
+            setTimeout(() => {
+                window.cg__checkCookieCategorySession();
+            }, 500); // Adjust the delay as needed
+        }
+    }).catch(error => {
+        console.error('Error checking client token:', error);
+    });
 };
