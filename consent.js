@@ -629,12 +629,11 @@ window.cg__checkClientToken = async () => {
     if (getCookieGuardScriptById) {
         // Get the value of the data-token attribute
         let dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
-        console.log(token);
         // Fetch the individual token file
         try {
             const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken);
             if (response.ok) {
-                console.log('Token is present');
+                console.log('Token file is present');
                 isValid = true;
             } else {
                 isValid = false;
