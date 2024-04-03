@@ -3,7 +3,9 @@ end=$'\e[0m'
 grey=$'\e[100m'
 blue=$'\e[104m'
 
+printf "\n\n${grey}********* - *********${end}"
 printf "${grey}Pulling data from consentRepo repo...${end}\n"
+printf "\n${grey}********* - *********${end}\n\n"
 git pull
 printf "${blue}Data pulled${end}\n\n"
 
