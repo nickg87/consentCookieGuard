@@ -13,5 +13,4 @@ printf "\n${grey}********* - *********${end}\n\n"
 npm run build
 
 printf "\n\n${blue}ALL DONE!...${end}\n\n\n"
-EOF
 
