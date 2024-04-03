@@ -1,6 +1,7 @@
 import { consimtamantText, despreText } from './consent_texts.js';
 import './consent_styles.css';
 
+const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro/';
 const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
@@ -621,8 +622,40 @@ window.cg__showCookieConsentModal = () => {
     }, 500); // Adjust the delay as needed
 }
 
+// Function to show modal from button
+// Function to show modal from button
+window.cg__checkClientToken = async () => {
+    console.log('token versiunea 2!');
+    let tryThis = document.getElementById("cookieGuard");
+    if (tryThis) {
+        console.log(tryThis);
+        // Get the value of the data-token attribute
+        let token = tryThis.getAttribute("data-token");
+        console.log(token);
+
+        // Fetch the JSON file containing the tokens and their properties
+        try {
+            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens.json');
+            if (!response.ok) {
+                throw new Error('Failed to fetch JSON');
+            }
+            const data = await response.json();
+
+            // Check if the token exists in the JSON and has a valid property
+            if (data[token] && data[token].valid) {
+                console.log('Token is present and valid');
+            } else {
+                console.log('Token is either not present or not valid');
+            }
+        } catch (error) {
+            console.error('Error fetching or parsing JSON:', error);
+        }
+    }
+}
+
 // Check if user has already consented to cookies
 window.onload = () => {
+    window.cg__checkClientToken();
     window.cg__displayCookieConsentButton();
     if (!window.cg__hasConsentedToCookies()) {
         window.cg__displayCookieConsentModal();
