@@ -490,6 +490,7 @@ window.cg__displayCookieConsentModal = () => {
                 <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">Accepta toate</button>`
                 }        
             </div>
+            <div id="___cookieConsent__footerPoweredBy">Soluție oferită de <a target="_blank" href="https://cookie-guard.ro" title="Solutie oferita de cookie-guard.ro"> cookie-guard.ro</a></div>
         </div>
     `;
     document.body.appendChild(modal);
