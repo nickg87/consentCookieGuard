@@ -24,11 +24,13 @@ const PARTNER_EXCEPTIONS = [
     'security_storage'
 ];
 
-let token = window.cookieGuard_consentToken;
+let token = window?.cookieGuard_consentToken;
 // Use the 'token' variable to perform your validation logic or any other actions
 if (token) {
     console.log('from bundle: ');
     console.log(token);
+} else {
+    console.log('not reading window.cookieGuard_consentToken! ');
 }
 
 
