@@ -630,30 +630,22 @@ window.cg__checkClientToken = async () => {
     if (tryThis) {
         console.log(tryThis);
         // Get the value of the data-token attribute
-        let token = tryThis.getAttribute("data-token");
+        let token = tryThis.getAttribute("data-token").toLowerCase();
         console.log(token);
 
-        // Fetch the JSON file containing the tokens and their properties
+        // Fetch the individual token file
         try {
-            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens.json');
-            if (!response.ok) {
-                throw new Error('Failed to fetch JSON');
-            }
-            const data = await response.json();
-            console.log(response);
-            console.log(data);
-
-            // Check if the token exists in the JSON and has a valid property
-            if (data[token] && data[token].valid === true) {
-                console.log('Token is present and valid');
+            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + token);
+            if (response.ok) {
+                console.log('Token is present');
                 isValid = true;
             } else {
                 isValid = false;
-                console.log('Token is either not present or not valid');
+                console.log('Token is not present');
             }
         } catch (error) {
             isValid = false;
-            console.error('Error fetching or parsing JSON:', error);
+            console.error('Error fetching token file:', error);
         }
     }
     return isValid;
