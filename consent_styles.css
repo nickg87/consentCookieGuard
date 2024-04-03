@@ -180,7 +180,6 @@
     margin-bottom: -.75rem;
     a {
         color: var(--WIDGET_MAIN_COLOR);
-        background: red;
     }
 }
 @media screen and (max-width: 768px) {
