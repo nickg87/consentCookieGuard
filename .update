@@ -3,7 +3,7 @@ end=$'\e[0m'
 grey=$'\e[100m'
 blue=$'\e[104m'
 
-printf "${grey}Pulling data from web2 repo...${end}\n"
+printf "${grey}Pulling data from consentRepo repo...${end}\n"
 git pull
 printf "${blue}Data pulled${end}\n\n"
 
