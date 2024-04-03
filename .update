@@ -1,0 +1,17 @@
+user=$(stat -c '%U' ./)
+end=$'\e[0m'
+grey=$'\e[100m'
+blue=$'\e[104m'
+
+printf "${grey}Pulling data from web2 repo...${end}\n"
+git pull
+printf "${blue}Data pulled${end}\n\n"
+
+printf "\n${grey}********* - *********${end}"
+printf "\n${grey}Rebuilding bundle file ...${end}"
+printf "\n${grey}********* - *********${end}\n\n"
+npm run build
+
+printf "\n\n${blue}ALL DONE!...${end}\n\n\n"
+EOF
+
