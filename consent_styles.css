@@ -1,4 +1,9 @@
 
+/* // PREVENT SCROLL ON BODY WHEN CONSENT MODAL IS OPEN  */
+body.___cookieConsent_opened {
+    overflow: hidden !important;
+}
+
 /* // CONSENT MODAL POPUP STYLES */
 .___cookieConsent__ModalConsentBackdrop {
     position: fixed;

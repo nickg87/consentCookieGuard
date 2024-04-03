@@ -394,6 +394,7 @@ window.cg__displayCookieConsentModal = () => {
     const backdrop = document.createElement('div');
     backdrop.setAttribute('id', '___cookieConsentBackdrop');
     backdrop.classList.add('___cookieConsent__ModalConsentBackdrop');
+    document.body.classList.add('___cookieConsent_opened');
     document.body.appendChild(backdrop);
 
     const EXTENDED_LIST = `
@@ -513,6 +514,7 @@ window.cg__displayCookieConsentModal = () => {
 window.cg__closeCookieModal = () => {
     document.getElementById('___cookieConsent__ModalConsent').remove();
     document.getElementById('___cookieConsentBackdrop').remove();
+    document.body.classList.remove('___cookieConsent_opened');
 }
 
 // Function to show a specific tab in the cookie consent modal
