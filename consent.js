@@ -625,17 +625,14 @@ window.cg__showCookieConsentModal = () => {
 // Function to show modal from button
 window.cg__checkClientToken = async () => {
     let isValid = false;
-    console.log('token versiunea 2!');
-    let tryThis = document.getElementById("cookieGuard");
-    if (tryThis) {
-        console.log(tryThis);
+    let getCookieGuardScriptById = document.getElementById("cookieGuard");
+    if (getCookieGuardScriptById) {
         // Get the value of the data-token attribute
-        let token = tryThis.getAttribute("data-token").toLowerCase();
+        let dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
         console.log(token);
-
         // Fetch the individual token file
         try {
-            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + token);
+            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken);
             if (response.ok) {
                 console.log('Token is present');
                 isValid = true;
@@ -645,7 +642,7 @@ window.cg__checkClientToken = async () => {
             }
         } catch (error) {
             isValid = false;
-            console.error('Error fetching token file:', error);
+            console.warn('Error fetching token file:', error);
         }
     }
     return isValid;
@@ -654,8 +651,6 @@ window.cg__checkClientToken = async () => {
 // Check if user has already consented to cookies
 window.onload = () => {
     window.cg__checkClientToken().then(isClientTokenValid => {
-        console.log('isClientTokenValid');
-        console.log(isClientTokenValid);
         if (isClientTokenValid) {
             window.cg__displayCookieConsentButton();
             if (!window.cg__hasConsentedToCookies()) {
