@@ -1,4 +1,4 @@
-import { consimtamantText, despreText } from './consent_texts.js';
+import {consimtamantText, despreText} from './consent_texts.js';
 import './consent_styles.css';
 
 const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro/';
@@ -25,14 +25,14 @@ const PARTNER_EXCEPTIONS = [
     'security_storage'
 ];
 
-let token = window.cookieGuard_consentToken;
-// Use the 'token' variable to perform your validation logic or any other actions
-if (token) {
-    console.log('cookieGuard_consentToken from bundle: ');
-    console.log(token);
-} else {
-    console.log('not reading window.cookieGuard_consentToken! ');
-}
+// let token = window.cookieGuard_consentToken;
+// // Use the 'token' variable to perform your validation logic or any other actions
+// if (token) {
+//     console.log('cookieGuard_consentToken from bundle: ');
+//     console.log(token);
+// } else {
+//     console.log('not reading window.cookieGuard_consentToken! ');
+// }
 
 
 // Define dataLayer and the gtag function.
@@ -623,6 +623,14 @@ window.cg__showCookieConsentModal = () => {
 }
 
 // Function to show modal from button
+window.cg__checkClientHostname = (dataURL) => {
+    let url = new URL(dataURL);
+    let domain = url.hostname.replace(/^www\./,'');
+    let currentDomain = window.location.hostname;
+    return currentDomain === domain;
+}
+
+// Function to show modal from button
 window.cg__checkClientToken = async () => {
     let isValid = false;
     let getCookieGuardScriptById = document.getElementById("cookieGuard");
@@ -631,13 +639,25 @@ window.cg__checkClientToken = async () => {
         let dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
         // Fetch the individual token file
         try {
-            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken);
+            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken + '.json');
             if (response.ok) {
                 console.log('Token file is present');
-                isValid = true;
+                const data = await response.json();
+                if (data?.website && data?.valid === true) {
+                    if (cg__checkClientHostname(data?.website)) {
+                        console.log('Token is present and valid');
+                        isValid = true;
+                    } else {
+                        console.warn('Wrong token  for ' + window.location.hostname);
+                        isValid = false;
+                    }
+                } else {
+                    console.warn('Token not valid for ' + window.location.hostname);
+                    isValid = false;
+                }
             } else {
                 isValid = false;
-                console.log('Token is not present');
+                console.warn('Token is not present');
             }
         } catch (error) {
             isValid = false;
