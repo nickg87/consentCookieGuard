@@ -626,7 +626,7 @@ window.cg__showCookieConsentModal = () => {
 window.cg__checkClientHostname = (dataURL) => {
     let url = new URL(dataURL);
     let domain = url.hostname.replace(/^www\./,'');
-    let currentDomain = window.location.hostname;
+    let currentDomain = window.location.hostname.replace(/^www\./,'');
     return currentDomain === domain;
 }
 
