@@ -25,16 +25,6 @@ const PARTNER_EXCEPTIONS = [
     'security_storage'
 ];
 
-// let token = window.cookieGuard_consentToken;
-// // Use the 'token' variable to perform your validation logic or any other actions
-// if (token) {
-//     console.log('cookieGuard_consentToken from bundle: ');
-//     console.log(token);
-// } else {
-//     console.log('not reading window.cookieGuard_consentToken! ');
-// }
-
-
 // Define dataLayer and the gtag function.
 window.dataLayer = window.dataLayer || [];
 
@@ -51,7 +41,7 @@ if (typeof window.gtag === 'function') {
         security_storage: "granted"
     });
 } else {
-    console.warn('window.gtag is not defined or is not a function.');
+    console.info('window.gtag is not defined or is not a function.');
 }
 
 const COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED = {
@@ -100,8 +90,6 @@ const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" fill="#000" height="30px" widt
                                         </g>
                                     </g>
                         </svg>`;
-
-
 
 
 // Check if the user has consented to cookies
@@ -231,8 +219,6 @@ window.cg__setCookieCategoryConsent = (category, overWriteAction = null) => {
 
         // Set consent for 'gc' category
         window.cg__setGCConsent(category, currentAction, cookieConsentObject);
-        console.log(cookieConsentObject);
-
         window.cg__storeCookieValue(cookieConsentObject);
 
         // Update the checked property of the corresponding checkbox input
@@ -254,8 +240,6 @@ window.cg__storeCookieValue = (updatedObject) => {
 }
 
 window.cg__setGCConsent = (category, action, cookieConsentObject) => {
-    console.log('enters here setGCConsent category:' + category);
-    console.log('enters here setGCConsent action:' + action);
     const gcCategory = 'gc';
     let gcObject = cookieConsentObject[gcCategory] || {};
 
@@ -271,19 +255,15 @@ window.cg__setGCConsent = (category, action, cookieConsentObject) => {
         }
     } else {
         if (category === 'preferences') {
-            console.log('should enter here if ' + category);
             gcObject = window.cg__updateCookieConsent(['ad_user_data', 'ad_personalization'], action, cookieConsentObject);
         }
         if (category === 'statistics') {
-            console.log('should enter here if ' + category);
             gcObject = window.cg__updateCookieConsent(['analytics_storage'], action, cookieConsentObject);
         }
         if (category === 'marketing') {
-            console.log('should enter here if ' + category);
             gcObject = window.cg__updateCookieConsent(['ad_storage'], action, cookieConsentObject);
         }
     }
-    console.log(gcObject);
 
     cookieConsentObject[gcCategory] = gcObject;
 
@@ -347,8 +327,6 @@ window.cg__send_gtmConsentDataObject = () => {
                 //     'gtm.triggers': '{{Trigger Firing Events}}',
                 //     'gtm.consent': gtmConsent
                 // });
-                // console.log('window.dataLayer in send_gtmConsentDataObject: AFTER PUSH');
-                // console.log(window.dataLayer);
                 // Option 2: Update consent using gtag (optional)
                 const gtmConsent = window.cg__create_gtmConsentDataObject(cookieConsentObject.gc, true);
                 returnValue = gtag('consent', 'update', gtmConsent);
@@ -531,7 +509,6 @@ window.cg__closeCookieModal = () => {
 
 // Function to show a specific tab in the cookie consent modal
 window.cg__showTab = (tabName) => {
-    //console.log(tabName)
     const tabButtons = document.querySelectorAll('.___cookieConsent__Tab');
     tabButtons.forEach(tabButton => {
         tabButton.classList.remove('active');
@@ -556,8 +533,6 @@ window.cg__showTab = (tabName) => {
 // Function to read current cookies and display them in the Details tab
 window.cg__displayCookieDetails = () => {
     let cookies = document.cookie.split(';'); // Split cookies into an array
-    //console.log(cookies);
-
     let cookieDetailsHtml = ''; // Variable to store the HTML for the cookie details
 
     // Loop through each cookie
@@ -643,11 +618,10 @@ window.cg__checkClientToken = async () => {
         try {
             const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken + '.json');
             if (response.ok) {
-                console.log('Token file is present');
                 const data = await response.json();
                 if (data?.website && data?.valid === true) {
                     if (cg__checkClientHostname(data?.website)) {
-                        console.log('Token is present and valid');
+                        console.info('Token is present and valid');
                         isValid = true;
                     } else {
                         console.warn('Wrong token  for ' + window.location.hostname);
