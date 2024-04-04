@@ -14,11 +14,11 @@ const despreText = {
         "Puteți schimba sau retrage oricând consimțământul dvs. din Declarația de Cookie-uri de pe site-ul nostru.",
         "Aflați mai multe despre cine suntem, cum ne puteți contacta și cum procesăm datele personale în Politica noastră de Confidențialitate.",
 		"<b>Necesare</b>",
-		"Cookie-urile necesare ajută la a face un site utilizabil prin activarea funcţiilor de bază, precum navigarea în pagină şi accesul la zonele securizate de pe site. Site-ul nu poate funcţiona corespunzător fără aceste cookie-uri."
+		"Cookie-urile necesare ajută la a face un site utilizabil prin activarea funcţiilor de bază, precum navigarea în pagină şi accesul la zonele securizate de pe site. Site-ul nu poate funcţiona corespunzător fără aceste cookie-uri.",
 		"<b>Preferinţe</b>",
-		"Cookie-urile de preferinţă permit unui site să îşi amintească informaţii care se modifică după modul în care se comportă sau arată site-ul, precum limba dvs. preferată sau regiunea în care vă aflaţi."
+		"Cookie-urile de preferinţă permit unui site să îşi amintească informaţii care se modifică după modul în care se comportă sau arată site-ul, precum limba dvs. preferată sau regiunea în care vă aflaţi.",
 		"<b>Statistici</b>",
-		"Cookie-urile de statistică îi ajută pe proprietarii unui site să înţeleagă modul în care vizitatorii interacţionează cu site-urile prin colectarea şi raportarea informaţiilor în mod anonim."
+		"Cookie-urile de statistică îi ajută pe proprietarii unui site să înţeleagă modul în care vizitatorii interacţionează cu site-urile prin colectarea şi raportarea informaţiilor în mod anonim.",
 		"<b>Marketing</b>",
 		"Cookie-urile de marketing sunt utilizate pentru a-i urmări pe utilizatori de la un site la altul. Intenţia este de a afişa anunţuri relevante şi antrenante pentru utilizatorii individuali, aşadar ele sunt mai valoroase pentru agenţiile de puiblicitate şi părţile terţe care se ocupă de publicitate."
 ],

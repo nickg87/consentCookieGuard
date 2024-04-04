@@ -460,7 +460,7 @@ window.cg__displayCookieConsentModal = () => {
             </div>
             <div id="___cookieConsent__TabContent">
                 <div id="___cookieConsent__ConsentTab">
-                     ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                     ${consimtamantText?.content.map(paragraph => `<p><div dangerouslySetInnerHTML={{ __html: '${paragraph}' }} /></p>`).join('')}
                     <p>Selecteaza din lista de mai jos:</p>
                     ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? SIMPLE_LIST : EXTENDED_LIST}
                 </div>
@@ -469,7 +469,7 @@ window.cg__displayCookieConsentModal = () => {
                 </div>
                 <div id="___cookieConsent__AboutTab" style="display:none;">
                     <div style="display: block">
-                    ${despreText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                    ${despreText?.content.map(paragraph => `<p><div dangerouslySetInnerHTML={{ __html: '${paragraph}' }} /></p>`).join('')}
                     </div>
                 </div>
             </div>
