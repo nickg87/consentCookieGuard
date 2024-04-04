@@ -306,11 +306,13 @@ window.cg__updateCookieConsent = (keysToUpdate, action, cookieConsentObject) => 
 window.cg__create_gtmConsentDataObject = (gcObject, gtagType) => {
     if (gtagType) {
         return {
-            'analytics': gcObject?.analytics_storage,
-            'analytics_storage': gcObject?.analytics_storage,
             'ad_storage': gcObject?.ad_storage,
             'ad_user_data': gcObject?.ad_user_data,
-            'ad_personalization': gcObject?.ad_personalization
+            'ad_personalization': gcObject?.ad_personalization,
+            'analytics_storage':  gcObject?.analytics_storage,
+            'personalization_storage':  gcObject?.personalization_storage,
+            'functionality_storage':  gcObject?.functionality_storage,
+            'security_storage':  gcObject?.security_storage
         };
     } else {
         return {
