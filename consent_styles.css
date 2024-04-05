@@ -62,9 +62,6 @@ body.___cookieConsent_opened {
         overflow: auto;
         transform: none; /* Remove the centering transform */
     }
-    #___cookieConsent__footerButtons {
-        flex-direction: column;
-    }
 }
 
 #___cookieConsent__CategoryButtonList {
@@ -240,6 +237,7 @@ body.___cookieConsent_opened {
     border-radius: 5px;
     width: unset !important;
     margin: unset !important;
+    box-sizing: border-box;
 }
 .___cookieConsent__consentButton.___cookieConsent__borderOnly {
     border: 1px solid var(--WIDGET_SECOND_COLOR);
@@ -252,12 +250,20 @@ body.___cookieConsent_opened {
     border: 1px solid var(--WIDGET_SECOND_COLOR);
     color:white;
     cursor: pointer;
-    /*appearance: none; !* Remove default appearance *!*/
-    /*font-family: inherit; !* Inherit font family *!*/
-    /*outline: none; !* Remove outline *!*/
-    /*font-size: 1rem;*/
-    /*font-weight: 600;*/
-    /*letter-spacing: normal;*/
+}
+@media screen and (max-width: 400px) {
+    .___cookieConsent__consentButton {
+        font-size: 0.80rem;
+    }
+    .___cookieConsent__Tab {
+        font-size: 0.80rem;
+        padding: 10px;
+    }
+}
+@media screen and (max-width: 768px) {
+    #___cookieConsent__footerButtons button:nth-child(3) {
+        min-width: 100% !important;
+    }
 }
 
 #___cookieConsent__TabContent {
@@ -294,6 +300,12 @@ body.___cookieConsent_opened {
         max-height: 30vh;
         min-height: 20vh;
     }
+    #___cookieConsent__ConsentTabText div {
+        max-height: 20vh;
+        min-height: 15vh;
+    }
+}
+@media screen and (max-width: 400px) {
     #___cookieConsent__ConsentTabText div {
         max-height: 15vh;
         min-height: 12vh;
