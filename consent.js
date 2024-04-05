@@ -672,7 +672,7 @@ window.cg__checkClientToken = async () => {
             console.warn('Error fetching token file:', error);
         }
     }
-    return true;
+    return isValid;
 }
 
 // Check if user has already consented to cookies
