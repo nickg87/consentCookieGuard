@@ -1,12 +1,13 @@
 import {consimtamantText, despreText} from './consent_texts.js';
 import './consent_styles.css';
 
-const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro/';
+const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro';
 const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
 const WIDGET_MAIN_COLOR = '#2f9d08';
 const WIDGET_SECOND_COLOR = '#202020';
+const CONSENT_BUTTON_WIDTH = '36';
 const COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE = false;
 const COOKIE_CONSENT_ALLOW_ALL = true;
 
@@ -93,29 +94,22 @@ const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" fill="#000" height="30px" widt
 
 
 // Check if the user has consented to cookies
-window.cg__addCustomFontForCookieConsent = () => {
-
+window.cg__addCustomStyleSheetsCookieConsent = () => {
     if (!document.getElementById('___cookieConsent_roboto_font_link')) {
-        // Create a link element
         const fontLink = document.createElement('link');
-
-        // Set the attributes for the link element
         fontLink.rel = 'stylesheet';
         fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
         fontLink.id = '___cookieConsent_roboto_font_link'; // Set an ID for the link element
-
-        // Append the link element to the head of the document
         document.head.appendChild(fontLink);
     }
 
-
-    // Create a link element
-    const fontLink = document.createElement('link');
-    // Set the attributes for the link element
-    fontLink.rel = 'stylesheet';
-    fontLink.href = 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap';
-    // Append the link element to the head of the document
-    document.head.appendChild(fontLink);
+    if (!document.getElementById('___cookieConsent_custom_styles_link')) {
+        const customStyleLink = document.createElement('link');
+        customStyleLink.rel = 'stylesheet';
+        customStyleLink.href = COOKIE_GUARD_URL + '/consent/dist/styles.css'; // Adjust the path based on your project structure
+        customStyleLink.id = '___cookieConsent_custom_styles_link'; // Set an ID for the link element
+        document.head.appendChild(customStyleLink);
+    }
 }
 
 
@@ -363,6 +357,7 @@ window.cg__displayCookieConsentButton = () => {
             --WIDGET_MAIN_COLOR: ${WIDGET_MAIN_COLOR}; /* Replace with your actual color value */
             --WIDGET_SECOND_COLOR: ${WIDGET_SECOND_COLOR}; /* Replace with your actual color value */
             --CONSENT_MODAL_Z_INDEX: ${CONSENT_MODAL_Z_INDEX};  /* Ensure the backdrop is behind the modal */
+            --CONSENT_BUTTON_WIDTH: ${CONSENT_BUTTON_WIDTH}px;  /* Ensure the backdrop is behind the modal */
         }
     `;
     // Append style element to the document head
@@ -619,7 +614,7 @@ window.cg__allowAllCookies = () => {
 
 // Function to show modal from button
 window.cg__showCookieConsentModal = () => {
-    window.cg__addCustomFontForCookieConsent();
+    window.cg__addCustomStyleSheetsCookieConsent();
     window.cg__displayCookieConsentModal();
     setTimeout(() => {
         window.cg__checkCookieCategorySession();
@@ -643,7 +638,7 @@ window.cg__checkClientToken = async () => {
         let dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
         // Fetch the individual token file
         try {
-            const response = await fetch(COOKIE_GUARD_URL + 'consent/tokens/' + dataToken + '.json');
+            const response = await fetch(COOKIE_GUARD_URL + '/consent/tokens/' + dataToken + '.json');
             if (response.ok) {
                 const data = await response.json();
                 if (data?.website && data?.valid === true) {
@@ -674,10 +669,10 @@ window.cg__checkClientToken = async () => {
 window.onload = () => {
     window.cg__checkClientToken().then(isClientTokenValid => {
         if (isClientTokenValid) {
+            window.cg__addCustomStyleSheetsCookieConsent();
             window.cg__displayCookieConsentButton();
             if (!window.cg__hasConsentedToCookies()) {
                 window.cg__displayCookieConsentModal();
-                window.cg__addCustomFontForCookieConsent();
             }
             window.cg__initiateCookieCategorySession();
             setTimeout(() => {
