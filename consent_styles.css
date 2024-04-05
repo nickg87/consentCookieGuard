@@ -32,6 +32,7 @@ body.___cookieConsent_opened {
 
 #___cookieConsent__ModalConsent {
     position: fixed;
+    box-sizing: border-box;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -49,6 +50,7 @@ body.___cookieConsent_opened {
 @media screen and (max-width: 768px) {
     #___cookieConsent__ModalConsent {
         position: fixed;
+        box-sizing: border-box;
         top: unset;
         bottom: 0;
         left: 0;
