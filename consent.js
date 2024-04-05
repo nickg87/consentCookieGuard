@@ -3,7 +3,7 @@ import './consent_styles.css';
 
 const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro';
 const COOKIE_PIXEL_URL = 'http://www.cookie-guard.ro:49152/pixel.png';
-const COOKIE_PIXEL_TRACK = true;
+const COOKIE_PIXEL_TRACK = false;
 const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
