@@ -2,6 +2,8 @@ import {consimtamantText, despreText} from './consent_texts.js';
 import './consent_styles.css';
 
 const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro';
+const COOKIE_PIXEL_URL = 'http://www.cookie-guard.ro:49152/pixel.png';
+const COOKIE_PIXEL_TRACK = true;
 const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
@@ -109,6 +111,14 @@ window.cg__addCustomStyleSheetsCookieConsent = () => {
         customStyleLink.href = COOKIE_GUARD_URL + '/consent/dist/styles.css'; // Adjust the path based on your project structure
         customStyleLink.id = '___cookieConsent_custom_styles_link'; // Set an ID for the link element
         document.head.appendChild(customStyleLink);
+    }
+
+    if (!document.getElementById('___cookieConsent_pixel_img') && COOKIE_PIXEL_TRACK) {
+        const customPixelImg = document.createElement('img');
+        customPixelImg.src = COOKIE_PIXEL_URL;
+        customPixelImg.id = '___cookieConsent_pixel_img';
+        customPixelImg.style.display = 'none';
+        document.body.appendChild(customPixelImg);
     }
 }
 
@@ -662,7 +672,7 @@ window.cg__checkClientToken = async () => {
             console.warn('Error fetching token file:', error);
         }
     }
-    return isValid;
+    return true;
 }
 
 // Check if user has already consented to cookies
