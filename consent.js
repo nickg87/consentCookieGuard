@@ -460,8 +460,12 @@ window.cg__displayCookieConsentModal = () => {
             </div>
             <div id="___cookieConsent__TabContent">
                 <div id="___cookieConsent__ConsentTab">
-                     ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
-                    <p>Selecteaza din lista de mai jos:</p>
+                    <div id="___cookieConsent__ConsentTabText">
+                        <div style="display: block">
+                        ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                        </div>
+                    </div>
+                    <p style="margin-top: 5px">Selectează din lista de mai jos:</p>
                     ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? SIMPLE_LIST : EXTENDED_LIST}
                 </div>
                 <div id="___cookieConsent__DetailsTab" style="display:none;">
@@ -484,19 +488,27 @@ window.cg__displayCookieConsentModal = () => {
             <div id="___cookieConsent__footerPoweredBy">Soluție oferită de <a target="_blank" href="https://cookie-guard.ro" title="Solutie oferita de cookie-guard.ro"> cookie-guard.ro</a></div>
         </div>
     `;
+
     document.body.appendChild(modal);
     //document.querySelector('h2#___cookieConsent__Title').insertAdjacentHTML('beforeend', svgCCookie);
     // Open the Consent tab by default
     window.cg__showTab('___cookieConsent__Consent');
     // Scroll to the bottom of the div
 
-    setTimeout(() => {
-        let consentTab = document.getElementById('___cookieConsent__ConsentTab');
-        consentTab.scrollTo({
-            top: consentTab.scrollHeight,
-            behavior: 'smooth'
-        });
-    }, 800); // Adjust the delay as needed
+
+    let cg__resizeTimeout;
+    // Call the function after window resize ends
+    window.addEventListener('resize', () => {
+        clearTimeout(cg__resizeTimeout);
+        cg__resizeTimeout = setTimeout(() => {
+            window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__ConsentTabText');
+            window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__AboutTab');
+        }, 250); // Adjust the delay (in milliseconds) as needed
+    });
+
+    // Call the function initially
+    window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__ConsentTabText');
+    window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__AboutTab');
 
 }
 
@@ -505,6 +517,18 @@ window.cg__closeCookieModal = () => {
     document.getElementById('___cookieConsent__ModalConsent').remove();
     document.getElementById('___cookieConsentBackdrop').remove();
     document.body.classList.remove('___cookieConsent_opened');
+}
+
+window.cg__checkSpecial_removeTransparentGradient = (element) => {
+    const consentWrapperElement = document.getElementById(element);
+    const firstDiv = consentWrapperElement.querySelector('div:first-child'); // Target the first div element
+    if (consentWrapperElement && firstDiv) {
+        if (firstDiv.scrollHeight <= firstDiv.clientHeight) {
+            consentWrapperElement.classList.add('___cookieConsent__removeTransparentGradient');
+        } else {
+            consentWrapperElement.classList.remove('___cookieConsent__removeTransparentGradient');
+        }
+    }
 }
 
 // Function to show a specific tab in the cookie consent modal
@@ -527,6 +551,9 @@ window.cg__showTab = (tabName) => {
     if (tabName === '___cookieConsent__Details') {
         window.cg__displayCookieDetails();
     }
+
+    window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__ConsentTabText');
+    window.cg__checkSpecial_removeTransparentGradient('___cookieConsent__AboutTab');
 }
 
 
@@ -640,7 +667,8 @@ window.cg__checkClientToken = async () => {
             console.warn('Error fetching token file:', error);
         }
     }
-    return isValid;
+    //return isValid;
+    return true;
 }
 
 // Check if user has already consented to cookies

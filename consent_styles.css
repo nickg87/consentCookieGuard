@@ -71,7 +71,7 @@ body.___cookieConsent_opened {
     display: flex;
     flex-wrap: wrap; /* Allow wrapping to next row if necessary */
     justify-content: space-around;
-    margin: 1rem 0;
+    margin: 0;
 }
 
 
@@ -98,6 +98,14 @@ body.___cookieConsent_opened {
     display: inline-block;
     width: 60px;
     height: 30px;
+}
+@media screen and (max-width: 768px) {
+    .___cookieConsent__Toggle {
+        transform: scale(0.75);
+    }
+    .___cookieConsent__ToggleLabel span {
+        font-size: 0.85rem;
+    }
 }
 
 .___cookieConsent__Toggle:before {
@@ -265,34 +273,46 @@ body.___cookieConsent_opened {
     font-weight: 700;
 }
 
-#___cookieConsent__Wrapper, #___cookieConsent__AboutTab div, #___cookieConsent__ConsentTab {
+#___cookieConsent__Wrapper, #___cookieConsent__AboutTab div {
     overflow-x:auto;
-    max-height:50vh;
-    min-height: 250px;
+    max-height:35vh;
+    min-height: 150px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#___cookieConsent__ConsentTabText div {
+    overflow-x:auto;
+    max-height:30vh;
+    min-height: 100px;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
 @media screen and (max-width: 768px) {
-    #___cookieConsent__Wrapper, #___cookieConsent__AboutTab div, #___cookieConsent__ConsentTab {
+    #___cookieConsent__Wrapper, #___cookieConsent__AboutTab div {
         max-height: 30vh;
         min-height: 20vh;
     }
+    #___cookieConsent__ConsentTabText div {
+        max-height: 15vh;
+        min-height: 12vh;
+    }
 }
 
-#___cookieConsent__Wrapper, #___cookieConsent__AboutTab div {
+#___cookieConsent__Wrapper, #___cookieConsent__AboutTab div, #___cookieConsent__ConsentTabText div {
     padding-bottom:1rem;
 }
 
-#___cookieConsent__Wrapper::-webkit-scrollbar, #___cookieConsent__AboutTab::-webkit-scrollbar, #___cookieConsent__ConsentTab::-webkit-scrollbar {
+#___cookieConsent__Wrapper::-webkit-scrollbar, #___cookieConsent__AboutTab::-webkit-scrollbar, #___cookieConsent__ConsentTabText::-webkit-scrollbar {
     display: none;
 }
 
 /* Add white transparent gradient at the bottom */
-#___cookieConsent__DetailsTab, #___cookieConsent__AboutTab {
+#___cookieConsent__DetailsTab, #___cookieConsent__AboutTab,  #___cookieConsent__ConsentTabText {
     position: relative; /* Ensure position context for the gradient */
 }
-#___cookieConsent__DetailsTab::after, #___cookieConsent__AboutTab::after {
+#___cookieConsent__DetailsTab::after, #___cookieConsent__AboutTab::after, #___cookieConsent__ConsentTabText::after {
     content: '';
     position: absolute;
     bottom: -5px;
@@ -300,6 +320,10 @@ body.___cookieConsent_opened {
     width: 100%;
     height: 40px; /* Adjust height as needed */
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 1)); /* White transparent gradient */
+}
+
+.___cookieConsent__removeTransparentGradient::after {
+    background: none !important;
 }
 
 
