@@ -1,6 +1,12 @@
 const express = require('express');
 const app = express();
 
+// Logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
 // Route to handle requests for the pixel image
 app.get('/pixel.png', (req, res) => {
     // Log request information
