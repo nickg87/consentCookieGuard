@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+console.log(__dirname); // Log directory path here
 
 // Logging middleware
 app.use((req, res, next) => {
@@ -9,6 +10,7 @@ app.use((req, res, next) => {
 
 // Route to handle requests for the pixel image
 app.get('/pixel.png', (req, res) => {
+    console.log(__dirname); // Log directory path here
     // Log request information
     console.log('Request received:', req.ip, req.headers['user-agent'], req.get('Referrer'));
 
