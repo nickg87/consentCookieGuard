@@ -41,7 +41,8 @@ if (typeof window.gtag === 'function') {
         analytics_storage: "denied",
         personalization_storage: "denied",
         functionality_storage: "granted",
-        security_storage: "granted"
+        security_storage: "granted",
+        wait_for_update: 5000
     });
 } else {
     console.info('window.gtag is not defined or is not a function.');
