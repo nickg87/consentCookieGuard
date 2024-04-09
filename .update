@@ -2,6 +2,7 @@ user=$(stat -c '%U' ./)
 end=$'\e[0m'
 grey=$'\e[100m'
 blue=$'\e[104m'
+yellow=$'\e[0;33m'
 
 printf "\n\n${grey}********* - *********${end}"
 printf "\n${grey}Pulling data from consentRepo repo...${end}"
@@ -12,7 +13,13 @@ printf "${blue}Data pulled${end}\n\n"
 printf "\n${grey}********* - *********${end}"
 printf "\n${grey}Rebuilding bundle file ...${end}"
 printf "\n${grey}********* - *********${end}\n\n"
-npm run build
+
+if [ -z "$1" ] || [ "$1" = "dev" ]; then
+  echo "${yellow}Running build in DEV mode${end}"
+  npm run build-dev
+else
+  npm run build
+fi
 
 printf "\n\n${blue}ALL DONE!...${end}\n\n\n"
 
