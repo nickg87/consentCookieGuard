@@ -643,6 +643,7 @@ window.cg__checkClientHostname = (dataURL) => {
 
 // Function to show modal from button
 window.cg__checkClientToken = async () => {
+    console.log('-cct');
     let isValid = false;
     let getCookieGuardScriptById = document.getElementById("cookieGuard");
     if (getCookieGuardScriptById) {
@@ -680,6 +681,7 @@ window.cg__checkClientToken = async () => {
 // Check if user has already consented to cookies
 window.onload = () => {
     window.cg__checkClientToken().then(isClientTokenValid => {
+        console.log(isClientTokenValid);
         if (isClientTokenValid) {
             window.cg__addCustomStyleSheetsCookieConsent();
             window.cg__displayCookieConsentButton();
