@@ -14,7 +14,7 @@ printf "\n${grey}********* - *********${end}"
 printf "\n${grey}Rebuilding bundle file ...${end}"
 printf "\n${grey}********* - *********${end}\n\n"
 
-if [ -z "$1" ] || [ "$1" = "dev" ]; then
+if [ "$1" = "dev" ]; then
   echo "${yellow}Running build in DEV mode${end}"
   npm run build-dev
 else
