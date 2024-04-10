@@ -297,8 +297,7 @@ window.cg__create_gtmConsentDataObject = (gcObject, gtagType) => {
             analytics_storage:  gcObject?.analytics_storage,
             personalization_storage:  gcObject?.personalization_storage,
             functionality_storage:  gcObject?.functionality_storage,
-            security_storage:  gcObject?.security_storage,
-            wait_for_update: 5500
+            security_storage:  gcObject?.security_storage
         };
     } else {
         return {
