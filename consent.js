@@ -679,7 +679,7 @@ window.cg__checkClientToken = async () => {
 }
 
 // Check if user has already consented to cookies
-window.onload = () => {
+(function() {
     window.cg__checkClientToken().then(isClientTokenValid => {
         console.log(isClientTokenValid);
         if (isClientTokenValid) {
@@ -696,4 +696,4 @@ window.onload = () => {
     }).catch(error => {
         console.error('Error checking client token:', error);
     });
-};
+})();
