@@ -30,6 +30,7 @@ const PARTNER_EXCEPTIONS = [
 
 // Define dataLayer and the gtag function.
 window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
 
 // Set default consent to 'denied' as a placeholder
 // Determine actual values based on your own requirements
