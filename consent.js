@@ -34,8 +34,8 @@ function gtag(){dataLayer.push(arguments);}
 
 // Set default consent to 'denied' as a placeholder
 // Determine actual values based on your own requirements
-if (typeof window.gtag === 'function') {
-    window.gtag('consent', 'default', {
+if (typeof gtag === 'function') {
+    gtag('consent', 'default', {
         ad_storage: "denied",
         ad_user_data: "denied",
         ad_personalization: "denied",
