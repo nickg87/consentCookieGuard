@@ -42,7 +42,7 @@ if (typeof window.gtag === 'function') {
         personalization_storage: "denied",
         functionality_storage: "granted",
         security_storage: "granted",
-        wait_for_update: 5000
+        wait_for_update: 4500
     });
 } else {
     console.info('window.gtag is not defined or is not a function.');
@@ -291,23 +291,24 @@ window.cg__updateCookieConsent = (keysToUpdate, action, cookieConsentObject) => 
 window.cg__create_gtmConsentDataObject = (gcObject, gtagType) => {
     if (gtagType) {
         return {
-            'ad_storage': gcObject?.ad_storage,
-            'ad_user_data': gcObject?.ad_user_data,
-            'ad_personalization': gcObject?.ad_personalization,
-            'analytics_storage':  gcObject?.analytics_storage,
-            'personalization_storage':  gcObject?.personalization_storage,
-            'functionality_storage':  gcObject?.functionality_storage,
-            'security_storage':  gcObject?.security_storage
+            ad_storage: gcObject?.ad_storage,
+            ad_user_data: gcObject?.ad_user_data,
+            ad_personalization: gcObject?.ad_personalization,
+            analytics_storage:  gcObject?.analytics_storage,
+            personalization_storage:  gcObject?.personalization_storage,
+            functionality_storage:  gcObject?.functionality_storage,
+            security_storage:  gcObject?.security_storage,
+            wait_for_update: 5500
         };
     } else {
         return {
-            'analytics': {
-                'storage': gcObject?.analytics_storage  // Extract value from CMP
+            analytics: {
+                storage: gcObject?.analytics_storage  // Extract value from CMP
             },
-            'ads': {
-                'storage': gcObject?.ad_storage,  // Extract value from CMP
-                'user_data': gcObject?.ad_user_data,  // Extract value from CMP (if applicable)
-                'personalization': gcObject?.ad_personalization  // Extract value from CMP (if applicable)
+            ads: {
+                storage: gcObject?.ad_storage,  // Extract value from CMP
+                user_data: gcObject?.ad_user_data,  // Extract value from CMP (if applicable)
+                personalization: gcObject?.ad_personalization  // Extract value from CMP (if applicable)
             }
         };
     }
