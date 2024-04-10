@@ -679,20 +679,22 @@ window.cg__checkClientToken = async () => {
 }
 
 // Check if user has already consented to cookies
-window.cg__checkClientToken().then(isClientTokenValid => {
-    console.log('v:' + isClientTokenValid);
-    if (isClientTokenValid) {
-        window.cg__addCustomStyleSheetsCookieConsent();
-        window.cg__displayCookieConsentButton();
-        if (!window.cg__hasConsentedToCookies()) {
-            window.cg__displayCookieConsentModal();
+setTimeout(() => {
+    window.cg__checkClientToken().then(isClientTokenValid => {
+        console.log('v:' + isClientTokenValid);
+        if (isClientTokenValid) {
+            window.cg__addCustomStyleSheetsCookieConsent();
+            window.cg__displayCookieConsentButton();
+            if (!window.cg__hasConsentedToCookies()) {
+                window.cg__displayCookieConsentModal();
+            }
+            window.cg__initiateCookieCategorySession();
+            setTimeout(() => {
+                window.cg__checkCookieCategorySession();
+            }, 500); // Adjust the delay as needed
         }
-        window.cg__initiateCookieCategorySession();
-        setTimeout(() => {
-            window.cg__checkCookieCategorySession();
-        }, 500); // Adjust the delay as needed
-    }
-}).catch(error => {
-    console.error('Error checking client token:', error);
-});
+    }).catch(error => {
+        console.error('Error checking client token:', error);
+    });
+}, 500);
 
