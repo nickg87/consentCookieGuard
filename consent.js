@@ -643,7 +643,7 @@ window.cg__checkClientHostname = (dataURL) => {
 
 // Function to show modal from button
 window.cg__checkClientToken = async () => {
-    console.log('-cct-X');
+    console.log('-cct-Y');
     let isValid = false;
     let getCookieGuardScriptById = document.getElementById("cookieGuard");
     if (getCookieGuardScriptById) {
@@ -679,7 +679,7 @@ window.cg__checkClientToken = async () => {
 }
 
 // Check if user has already consented to cookies
-setTimeout(() => {
+document.addEventListener('DOMContentLoaded', function() {
     window.cg__checkClientToken().then(isClientTokenValid => {
         console.log('v:' + isClientTokenValid);
         if (isClientTokenValid) {
@@ -696,5 +696,5 @@ setTimeout(() => {
     }).catch(error => {
         console.error('Error checking client token:', error);
     });
-}, 500);
+});
 
