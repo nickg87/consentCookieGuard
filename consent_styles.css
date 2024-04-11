@@ -17,7 +17,7 @@ body.___cookieConsent_opened {
 }
 
 #___cookieConsent__Title {
-    font-size: 1.5rem;
+    font-size: 20px;
     font-weight: 600;
     display: flex;
     margin-bottom: 0.5rem;
@@ -101,7 +101,7 @@ body.___cookieConsent_opened {
         transform: scale(0.75);
     }
     .___cookieConsent__ToggleLabel span {
-        font-size: 0.85rem;
+        font-size: 12px;
     }
 }
 
@@ -254,10 +254,10 @@ body.___cookieConsent_opened {
 }
 @media screen and (max-width: 400px) {
     .___cookieConsent__consentButton {
-        font-size: 0.80rem;
+        font-size: 12px;
     }
     .___cookieConsent__Tab {
-        font-size: 0.80rem;
+        font-size: 12px;
         padding: 10px;
     }
 }
