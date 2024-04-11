@@ -242,7 +242,7 @@ window.cg__storeCookieValue = (updatedObject) => {
     expirationDate.setFullYear(expirationDate.getFullYear() + 1);
 
     // Update the cookie with the updated string
-    document.cookie = `${COOKIE_NAME}=${updatedCookieConsentString}; expires=${expirationDate.toUTCString()}; path=/ SameSite=None; Secure`;
+    document.cookie = `${COOKIE_NAME}=${updatedCookieConsentString}; expires=${expirationDate.toUTCString()}; path=/; SameSite=None; Secure`;
 }
 
 window.cg__setGCConsent = (category, action, cookieConsentObject) => {
