@@ -188,7 +188,7 @@ body.___cookieConsent_opened {
 
 #___cookieConsent__footerPoweredBy {
     text-align: right;
-    margin-top: .5rem;
+    margin-top: .75rem;
     margin-bottom: -.75rem;
     a {
         color: var(--WIDGET_MAIN_COLOR);
@@ -222,7 +222,7 @@ body.___cookieConsent_opened {
 }
 .___cookieConsent__consentButton {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 600 !important;
     letter-spacing: normal;
     line-height: 18px;
     display: flex;
@@ -239,6 +239,7 @@ body.___cookieConsent_opened {
     width: unset !important;
     margin: unset !important;
     box-sizing: border-box;
+    text-transform: unset;
 }
 .___cookieConsent__consentButton.___cookieConsent__borderOnly {
     border: 1px solid var(--WIDGET_SECOND_COLOR);
