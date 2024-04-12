@@ -11,6 +11,7 @@ const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
 let WIDGET_MAIN_COLOR = '#0045ff';
 let WIDGET_BUTTON_POSITION = 'bottom_left';
+let WIDGET_BUTTON_ICON = 'default';
 let CUSTOM_COOKIE_LINK = ''
 const WIDGET_SECOND_COLOR = '#202020';
 const CONSENT_BUTTON_WIDTH = '40';
@@ -389,7 +390,7 @@ window.cg__displayCookieConsentButton = () => {
     const cookieConsentButton = document.createElement('div');
     cookieConsentButton.innerHTML = `<div id="___cookieButtonConsent" class="___cookieConsent__${WIDGET_BUTTON_POSITION}" onclick="window.cg__showCookieConsentModal()"></div>`;
     document.body.appendChild(cookieConsentButton);
-    document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', svgShieldCookie);
+    document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', WIDGET_BUTTON_ICON === 'default' ? svgCCookie : svgShieldCookie);
 }
 
 // Function to display cookie consent modal
