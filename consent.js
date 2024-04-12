@@ -479,7 +479,7 @@ window.cg__displayCookieConsentModal = () => {
                     <div id="___cookieConsent__ConsentTabText">
                         <div style="display: block">
                         ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
-                        ${CUSTOM_COOKIE_LINK ? `Citește mai multe <a href="${CUSTOM_COOKIE_LINK}" title="Politica c0okies" target="_blank">aici</a>` : ''}
+                        ${CUSTOM_COOKIE_LINK ? `Citește mai multe <a href="${CUSTOM_COOKIE_LINK}" title="Politica cookies" target="_blank">aici</a>` : ''}
                         </div>
                     </div>
                     <p style="margin-top: 5px">Selectează din lista de mai jos:</p>
@@ -664,6 +664,9 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
     }
     if (data?.tooltip_position) {
         WIDGET_BUTTON_POSITION = data.tooltip_position;
+    }
+    if (data?.widget_icon) {
+        WIDGET_BUTTON_ICON = data?.widget_icon;
     }
 }
 

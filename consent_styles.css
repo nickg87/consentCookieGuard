@@ -375,6 +375,7 @@ body.___cookieConsent_opened {
 #___cookieButtonConsent.___cookieConsent__bottom-right {
     bottom: 20px !important;
     right: 20px !important;
+    left:unset;
 }
 #___cookieButtonConsent:hover {
     background-color: var(--WIDGET_MAIN_COLOR);
