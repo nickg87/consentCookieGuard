@@ -381,3 +381,11 @@ body.___cookieConsent_opened {
 #___cookieButtonConsent:hover svg {
     fill: #fff; /* Change the fill color of the SVG */
 }
+
+#___cookieButtonConsent svg path.custom {
+    fill:var(--WIDGET_MAIN_COLOR) !important;
+}
+
+#___cookieButtonConsent:hover svg path.custom {
+    fill: white !important;
+}
