@@ -10,7 +10,7 @@ const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
 let WIDGET_MAIN_COLOR = '#0045ff';
-let WIDGET_BUTTON_POSITION = 'bottom_left';
+let WIDGET_BUTTON_POSITION = 'bottom-left';
 let WIDGET_BUTTON_ICON = 'default';
 let CUSTOM_COOKIE_LINK = ''
 const WIDGET_SECOND_COLOR = '#202020';
@@ -662,8 +662,8 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
     if (data?.link_cookies) {
         CUSTOM_COOKIE_LINK = decodeURIComponent(data.link_cookies);
     }
-    if (data?.tooltip_position) {
-        WIDGET_BUTTON_POSITION = data.tooltip_position;
+    if (data?.icon_position) {
+        WIDGET_BUTTON_POSITION = data.icon_position;
     }
     if (data?.widget_icon) {
         WIDGET_BUTTON_ICON = data?.widget_icon;
