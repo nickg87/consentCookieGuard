@@ -300,6 +300,9 @@ body.___cookieConsent_opened {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+#___cookieConsent__ConsentTabText div a {
+    color: var(--WIDGET_MAIN_COLOR);
+}
 
 @media screen and (max-width: 768px) {
     #___cookieConsent__Wrapper, #___cookieConsent__AboutTab div {
@@ -342,14 +345,13 @@ body.___cookieConsent_opened {
 
 .___cookieConsent__removeTransparentGradient::after {
     background: none !important;
+    display: none;
 }
 
 
 /* // CONSENT BUTTON STYLES */
 #___cookieButtonConsent {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
     height: var(--CONSENT_BUTTON_WIDTH);
     width: var(--CONSENT_BUTTON_WIDTH);
     border-radius: 50%;
@@ -362,6 +364,15 @@ body.___cookieConsent_opened {
     align-items: center;
     justify-content: center;
     z-index: var(--CONSENT_MODAL_Z_INDEX); /* Ensure the backdrop is behind the modal */
+}
+
+#___cookieButtonConsent.___cookieConsent__bottom-left {
+    bottom: 20px;
+    left: 20px;
+}
+#___cookieButtonConsent.___cookieConsent__bottom-right {
+    bottom: 20px;
+    right: 20px;
 }
 #___cookieButtonConsent:hover {
     background-color: var(--WIDGET_MAIN_COLOR);

@@ -1,13 +1,17 @@
 import {consimtamantText, despreText} from './consent_texts.js';
 import './consent_styles.css';
 
+let IS_LOCAL_DEV = false;
 const COOKIE_GUARD_URL = 'https://www.cookie-guard.ro';
+const LOCAL_DEV_URL = 'http://banci-info.loc';
 const COOKIE_PIXEL_URL = 'http://www.cookie-guard.ro:49152/pixel.png';
 const COOKIE_PIXEL_TRACK = false;
 const COOKIE_NAME = 'cookieConsentGlobalHolder';
 const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
-const WIDGET_MAIN_COLOR = '#2f9d08';
+let WIDGET_MAIN_COLOR = '#0045ff';
+let WIDGET_BUTTON_POSITION = 'bottom_left';
+let CUSTOM_COOKIE_LINK = ''
 const WIDGET_SECOND_COLOR = '#202020';
 const CONSENT_BUTTON_WIDTH = '40';
 const COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE = false;
@@ -67,6 +71,9 @@ const COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE = {
 
 const COOKIE_CONSENT_CATEGORY_TYPES = COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE : COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED;
 
+const svgShieldCookie =`<svg id="${COOKIE_NAME}-svg1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0zm0 0h24v24H0z"/><path fill="#000" d="M11.14 16L7.3 12.16l1.41-1.42 2.43 2.42L15.3 9l1.42 1.41L11.14 16zM12 4.24l6 3v4.1c0 3.9-2.55 7.5-6 8.59-3.45-1.09-6-4.7-6-8.59v-4.1l6-3M12 2L4 6v5.33c0 4.93 3.41 9.55 8 10.67 4.59-1.12 8-5.73 8-10.67V6l-8-4z"/></svg>
+`
+
 const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" fill="#000" height="30px" width="30px" version="1.1"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 299.049 299.049" xml:space="preserve">
@@ -110,9 +117,12 @@ window.cg__addCustomStyleSheetsCookieConsent = () => {
     if (!document.getElementById('___cookieConsent_custom_styles_link')) {
         const customStyleLink = document.createElement('link');
         customStyleLink.rel = 'stylesheet';
-        customStyleLink.href = COOKIE_GUARD_URL + '/consent/dist/styles.css'; // Adjust the path based on your project structure
+        //customStyleLink.href = (IS_LOCAL_DEV  ? LOCAL_DEV_URL + '/_resources/app/js/dist/style.css' : COOKIE_GUARD_URL + '/consent/dist/styles.css') ; // Adjust the path based on your project structure
+        customStyleLink.href = COOKIE_GUARD_URL + '/consent/dist/styles.css';
         customStyleLink.id = '___cookieConsent_custom_styles_link'; // Set an ID for the link element
-        document.head.appendChild(customStyleLink);
+        if (!IS_LOCAL_DEV) {
+            document.head.appendChild(customStyleLink);
+        }
     }
 
     if (!document.getElementById('___cookieConsent_pixel_img') && COOKIE_PIXEL_TRACK) {
@@ -377,11 +387,9 @@ window.cg__displayCookieConsentButton = () => {
 
     // Create cookie consent button
     const cookieConsentButton = document.createElement('div');
-    cookieConsentButton.innerHTML = `
-        <div id="___cookieButtonConsent" onclick="window.cg__showCookieConsentModal()"></div>
-    `;
+    cookieConsentButton.innerHTML = `<div id="___cookieButtonConsent" class="___cookieConsent__${WIDGET_BUTTON_POSITION}" onclick="window.cg__showCookieConsentModal()"></div>`;
     document.body.appendChild(cookieConsentButton);
-    document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', svgCCookie);
+    document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', svgShieldCookie);
 }
 
 // Function to display cookie consent modal
@@ -470,6 +478,7 @@ window.cg__displayCookieConsentModal = () => {
                     <div id="___cookieConsent__ConsentTabText">
                         <div style="display: block">
                         ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                        ${CUSTOM_COOKIE_LINK ? `Citește mai multe aici: <a href="${CUSTOM_COOKIE_LINK}" target="_blank">${CUSTOM_COOKIE_LINK}</a>` : ''}
                         </div>
                     </div>
                     <p style="margin-top: 5px">Selectează din lista de mai jos:</p>
@@ -638,7 +647,23 @@ window.cg__checkClientHostname = (dataURL) => {
     let url = new URL(dataURL);
     let domain = url.hostname.replace(/^www\./,'');
     let currentDomain = window.location.hostname.replace(/^www\./,'');
-    return currentDomain === domain;
+    let currentTld = currentDomain.split('.').slice(-1)[0];
+    IS_LOCAL_DEV = currentTld === 'loc';
+    return currentDomain === domain || currentTld === 'loc';
+}
+
+// Function to show modal from button
+window.cg__clientCustomDefinitionsByClientToken = (data) => {
+    console.log(data);
+    if (data?.banner_color) {
+        WIDGET_MAIN_COLOR = data.banner_color;
+    }
+    if (data?.link_cookies) {
+        CUSTOM_COOKIE_LINK = data.link_cookies;
+    }
+    if (data?.tooltip_position) {
+        WIDGET_BUTTON_POSITION = data.tooltip_position;
+    }
 }
 
 // Function to show modal from button
@@ -654,6 +679,9 @@ window.cg__checkClientToken = async () => {
             const response = await fetch(COOKIE_GUARD_URL + '/consent/tokens/' + dataToken + '.json');
             if (response.ok) {
                 const data = await response.json();
+                if(data) {
+                    window.cg__clientCustomDefinitionsByClientToken(data);
+                }
                 if (data?.website && data?.valid === true) {
                     if (cg__checkClientHostname(data?.website)) {
                         console.info('Token is present and valid');
