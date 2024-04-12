@@ -72,10 +72,10 @@ const COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE = {
 
 const COOKIE_CONSENT_CATEGORY_TYPES = COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE : COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED;
 
-const svgShieldCookie =`<svg id="${COOKIE_NAME}-svg1" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0zm0 0h24v24H0z"/><path class="custom" fill="#000" d="M11.14 16L7.3 12.16l1.41-1.42 2.43 2.42L15.3 9l1.42 1.41L11.14 16zM12 4.24l6 3v4.1c0 3.9-2.55 7.5-6 8.59-3.45-1.09-6-4.7-6-8.59v-4.1l6-3M12 2L4 6v5.33c0 4.93 3.41 9.55 8 10.67 4.59-1.12 8-5.73 8-10.67V6l-8-4z"/></svg>
+const svgShieldCookie =`<svg id="${COOKIE_NAME}-svg1" class="custom" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0zm0 0h24v24H0z"/><path class="custom" fill="#000" d="M11.14 16L7.3 12.16l1.41-1.42 2.43 2.42L15.3 9l1.42 1.41L11.14 16zM12 4.24l6 3v4.1c0 3.9-2.55 7.5-6 8.59-3.45-1.09-6-4.7-6-8.59v-4.1l6-3M12 2L4 6v5.33c0 4.93 3.41 9.55 8 10.67 4.59-1.12 8-5.73 8-10.67V6l-8-4z"/></svg>
 `
 
-const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" fill="#000" height="30px" width="30px" version="1.1"
+const svgCCookie = `<svg id="${COOKIE_NAME}-svg1" class="default" fill="none" height="30px" width="30px" version="1.1"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 299.049 299.049" xml:space="preserve">
                                     <g>
