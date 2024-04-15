@@ -11,12 +11,19 @@ const LOCAL_STORAGE_COOKIE_NAME = 'cookieConsentGlobal';
 const LOCAL_STORAGE_COOKIE_SEND = 'cookieConsentGlobal_send';
 let WIDGET_MAIN_COLOR = '#0045ff';
 let WIDGET_BUTTON_POSITION = 'bottom-left';
+let WIDGET_LANGUAGE = 'ro';
 let WIDGET_BUTTON_ICON = 'default';
 let CUSTOM_COOKIE_LINK = ''
 const WIDGET_SECOND_COLOR = '#202020';
 const CONSENT_BUTTON_WIDTH = '40';
 const COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE = false;
 const COOKIE_CONSENT_ALLOW_ALL = true;
+
+import { languageTexts } from './consent_texts.js';
+
+// Get the appropriate language-specific texts
+const { generalTexts, consentTexts,detailTexts,  aboutTexts } = languageTexts;
+
 
 const COOKIE_CONSENT_GOOGLE_PARTNER = {
     ad_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
@@ -395,7 +402,10 @@ window.cg__displayCookieConsentButton = () => {
 
 // Function to display cookie consent modal
 window.cg__displayCookieConsentModal = () => {
-
+    let currentGeneralTexts = generalTexts[WIDGET_LANGUAGE];
+    let currentConsentTexts = consentTexts[WIDGET_LANGUAGE];
+    let currentDetailTexts = detailTexts[WIDGET_LANGUAGE];
+    let currentAboutTexts = aboutTexts[WIDGET_LANGUAGE];
     // Create backdrop element
     const backdrop = document.createElement('div');
     backdrop.setAttribute('id', '___cookieConsentBackdrop');
@@ -406,7 +416,7 @@ window.cg__displayCookieConsentModal = () => {
     const EXTENDED_LIST = `
     <div id="___cookieConsent__CategoryButtonList">
         <label for="___cookieConsent__Necessary" class="___cookieConsent__ToggleLabel">
-            <span>Necesare</span>
+            <span>${currentConsentTexts?.toggleButtons?.necessary}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Necessary" name="___cookieConsent__Necessary" value="necessary" checked disabled>
                 <div class="___cookieConsent__toggleHolder"><div class="___cookieConsent__toggleInner"></div></div>
@@ -414,7 +424,7 @@ window.cg__displayCookieConsentModal = () => {
         </label>
         <div class="___cookieConsent__ToggleDivider"></div>
         <label for="___cookieConsent__Preferences" class="___cookieConsent__ToggleLabel">
-            <span>Preferinte</span>
+            <span>${currentConsentTexts?.toggleButtons?.preferences}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Preferences" name="___cookieConsent__Preferences" value="preferences">
                 <div class="___cookieConsent__toggleHolder" onclick="window.cg__setCookieCategoryConsent('preferences')"><div class="___cookieConsent__toggleInner"></div></div>
@@ -422,7 +432,7 @@ window.cg__displayCookieConsentModal = () => {
         </label>
         <div class="___cookieConsent__ToggleDivider"></div>
         <label for="___cookieConsent__Statistics" class="___cookieConsent__ToggleLabel">
-            <span>Statistici</span>
+            <span>${currentConsentTexts?.toggleButtons?.statistics}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Statistics" name="___cookieConsent__Statistics" value="statistics">
                 <div class="___cookieConsent__toggleHolder" onclick="window.cg__setCookieCategoryConsent('statistics')"><div class="___cookieConsent__toggleInner"></div></div>
@@ -430,7 +440,7 @@ window.cg__displayCookieConsentModal = () => {
         </label>
         <div class="___cookieConsent__ToggleDivider"></div>
         <label for="___cookieConsent__Marketing" class="___cookieConsent__ToggleLabel">
-            <span>Marketing</span>
+            <span>${currentConsentTexts?.toggleButtons?.marketing}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Marketing" name="___cookieConsent__Marketing" value="marketing">
                 <div class="___cookieConsent__toggleHolder" onclick="window.cg__setCookieCategoryConsent('marketing')"><div class="___cookieConsent__toggleInner"></div></div>
@@ -438,14 +448,14 @@ window.cg__displayCookieConsentModal = () => {
         </label>
     </div>`;
     const EXTENDED_LIST_BUTTONS = `
-        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
-        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__allowAllCookies()">Accepta toate</button>
+        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>
+        <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__allowAllCookies()">${currentGeneralTexts?.acceptAllButton}</button>
     `;
 
     const SIMPLE_LIST = `
     <div id="___cookieConsent__CategoryButtonList">
         <label for="___cookieConsent__Necessary" class="___cookieConsent__ToggleLabel">
-            <span>Necesare</span>
+            <span>${currentConsentTexts?.toggleButtons?.necessary}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Necessary" name="___cookieConsent__Necessary" value="necessary" checked disabled>
                 <div class="___cookieConsent__toggleHolder"><div class="___cookieConsent__toggleInner"></div></div>
@@ -453,7 +463,7 @@ window.cg__displayCookieConsentModal = () => {
         </label>
         <div class="___cookieConsent__ToggleDivider"></div>
         <label for="___cookieConsent__Optional" class="___cookieConsent__ToggleLabel">
-            <span>Opționale</span>
+            <span>${currentConsentTexts?.toggleButtons?.optional}</span>
             <div class="___cookieConsent__Toggle">
                 <input type="checkbox" id="___cookieConsent__Optional" name="___cookieConsent__Optional" value="optional">
                 <div class="___cookieConsent__toggleHolder" onclick="window.cg__setCookieCategoryConsent('optional')"><div class="___cookieConsent__toggleInner"></div></div>
@@ -461,48 +471,48 @@ window.cg__displayCookieConsentModal = () => {
         </label>
     </div>`;
 
-    const SIMPLE_LIST_BUTTONS = `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__denyAllCookies()">Respinge toate</button>`;
+    const SIMPLE_LIST_BUTTONS = `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>`;
 
     // Create cookie consent modal
     const modal = document.createElement('div');
     modal.id = "___cookieConsent__ModalConsent";
     modal.innerHTML = `
         <div id="___cookieConsent__ModalWrapper">
-            <h2 id="___cookieConsent__Title">Folosim cookies</h2>
+            <h2 id="___cookieConsent__Title">${currentGeneralTexts?.generalTitle}</h2>
             <div id="___cookieConsent__TabButtons">
-                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Consent')" id="___cookieConsent__ConsentTabButton">${consimtamantText?.title}</div>
-                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Details')" id="___cookieConsent__DetailsTabButton">Detalii</div>
-                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__About')" id="___cookieConsent__AboutTabButton">${despreText?.title}</div>
+                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Consent')" id="___cookieConsent__ConsentTabButton">${currentConsentTexts?.title}</div>
+                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Details')" id="___cookieConsent__DetailsTabButton">${currentDetailTexts?.title}</div>
+                <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__About')" id="___cookieConsent__AboutTabButton">${currentAboutTexts?.title}</div>
             </div>
             <div id="___cookieConsent__TabContent">
                 <div id="___cookieConsent__ConsentTab">
                     <div id="___cookieConsent__ConsentTabText">
                         <div style="display: block">
-                        ${consimtamantText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
-                        ${CUSTOM_COOKIE_LINK ? `Citește mai multe <a href="${CUSTOM_COOKIE_LINK}" title="Politica cookies" target="_blank">aici</a>` : ''}
+                        ${currentConsentTexts?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                        ${CUSTOM_COOKIE_LINK ? `${currentConsentTexts?.customLinkReadMore}<a href="${CUSTOM_COOKIE_LINK}" title="${currentConsentTexts?.customLinkAnchorTitle}" target="_blank">${currentConsentTexts?.customLinkText}</a>` : ''}
                         </div>
                     </div>
-                    <p style="margin-top: 5px">Selectează din lista de mai jos:</p>
+                    <p style="margin: 10px 0">${currentConsentTexts?.headlineButtons}</p>
                     ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? SIMPLE_LIST : EXTENDED_LIST}
                 </div>
                 <div id="___cookieConsent__DetailsTab" style="display:none;">
-                    <p>Detalii despre cookiurile folosite...</p>
+                    <p>${currentDetailTexts?.placeholderText}</p>
                 </div>
                 <div id="___cookieConsent__AboutTab" style="display:none;">
                     <div style="display: block">
-                    ${despreText?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
+                    ${currentAboutTexts?.content.map(paragraph => `<p>${paragraph}</p>`).join('')}
                     </div>
                 </div>
             </div>
             <div id="___cookieConsent__footerButtons">
                 ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ?
                 SIMPLE_LIST_BUTTONS :
-                `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">Respinge toate</button>
-                <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">Accepta selecția</button>
-                <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">Accepta toate</button>`
+                `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>
+                <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">${currentGeneralTexts?.acceptSelectionButton}</button>
+                <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">${currentGeneralTexts?.acceptAllButton}</button>`
                 }        
             </div>
-            <div id="___cookieConsent__footerPoweredBy">Soluție oferită de <a target="_blank" href="https://cookie-guard.ro" title="Solutie oferita de cookie-guard.ro"> cookie-guard.ro</a></div>
+            <div id="___cookieConsent__footerPoweredBy">${currentGeneralTexts?.poweredByText} <a target="_blank" href="https://cookie-guard.ro" title="${currentGeneralTexts?.poweredByText} cookie-guard.ro"> cookie-guard.ro</a></div>
         </div>
     `;
 
@@ -667,6 +677,9 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
     }
     if (data?.widget_icon) {
         WIDGET_BUTTON_ICON = data?.widget_icon;
+    }
+    if (data?.popup_lang) {
+        WIDGET_LANGUAGE = data?.popup_lang.toLowerCase();
     }
 }
 
