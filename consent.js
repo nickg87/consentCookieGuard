@@ -743,11 +743,7 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
         // console.log(COOKIE_CONSENT_BANNER_TYPE);
     }
     if (data?.icon_on) {
-        if (COOKIE_CONSENT_BANNER_TYPE === 'bottom-banner') {
-            COOKIE_CONSENT_SHOW_ALWAYS = false;
-        } else {
-            COOKIE_CONSENT_SHOW_ALWAYS = data?.icon_on === 'yes';
-        }
+        COOKIE_CONSENT_SHOW_ALWAYS = data?.icon_on === 'yes';
         // console.log('COOKIE_CONSENT_SHOW_ALWAYS: ');
         // console.log(COOKIE_CONSENT_SHOW_ALWAYS);
     }
