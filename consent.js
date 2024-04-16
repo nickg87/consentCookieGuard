@@ -451,7 +451,9 @@ window.cg__displayCookieConsentModal = () => {
     backdrop.setAttribute('id', '___cookieConsentBackdrop');
     backdrop.classList.add('___cookieConsent__ModalConsentBackdrop');
     document.body.classList.add('___cookieConsent_opened');
-    document.body.appendChild(backdrop);
+    if (!COOKIE_CONSENT_OPTIONAL) {
+        document.body.appendChild(backdrop);
+    }
 
     const EXTENDED_LIST = `
     <div id="___cookieConsent__CategoryButtonList">
