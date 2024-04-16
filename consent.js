@@ -450,8 +450,8 @@ window.cg__displayCookieConsentModal = () => {
     const backdrop = document.createElement('div');
     backdrop.setAttribute('id', '___cookieConsentBackdrop');
     backdrop.classList.add('___cookieConsent__ModalConsentBackdrop');
-    document.body.classList.add('___cookieConsent_opened');
     if (!COOKIE_CONSENT_OPTIONAL) {
+        document.body.classList.add('___cookieConsent_opened');
         document.body.appendChild(backdrop);
     }
 
