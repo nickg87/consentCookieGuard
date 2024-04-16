@@ -36,9 +36,15 @@ body.___cookieConsent_opened {
 #___cookieConsent__ModalConsent {
     position: fixed;
     box-sizing: border-box;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     background-color: #fff;
     padding: 20px;
+    border-radius: 15px;
     box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.5); /* Add shadow */
+    width:50%;
+    max-width: 800px !important;
     font-family: 'Roboto', sans-serif;
     z-index:var(--CONSENT_MODAL_Z_INDEX);
     transition: all 0.4s ease !important;
@@ -57,10 +63,12 @@ body.___cookieConsent_opened {
     max-width: unset !important;
     bottom: 0;
     top: unset;
+    left:unset;
     width: 100%;
     height: auto;
     max-height: 85vh;
-    transform: none;
+    transform: none !important;
+    border-radius: unset;
 }
 .___cookieConsent__bottom-banner #___cookieConsent__ModalWrapper {
     max-width: 1000px;
