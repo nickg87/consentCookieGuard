@@ -17,7 +17,10 @@ let CUSTOM_COOKIE_LINK = ''
 const WIDGET_SECOND_COLOR = '#202020';
 const CONSENT_BUTTON_WIDTH = '40';
 const COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE = false;
-const COOKIE_CONSENT_ALLOW_ALL = true;
+let COOKIE_CONSENT_ALLOW_ALL = null;
+let COOKIE_CONSENT_OPTIONAL = null;
+let COOKIE_CONSENT_SHOW_ALWAYS = null;
+let COOKIE_CONSENT_BANNER_TYPE = null;
 
 import { languageTexts } from './consent_texts.js';
 
@@ -25,7 +28,7 @@ import { languageTexts } from './consent_texts.js';
 const { generalTexts, consentTexts,detailTexts,  aboutTexts } = languageTexts;
 
 
-const COOKIE_CONSENT_GOOGLE_PARTNER = {
+let COOKIE_CONSENT_GOOGLE_PARTNER = {
     ad_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
     ad_user_data: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
     ad_personalization: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
@@ -61,23 +64,43 @@ if (typeof gtag === 'function') {
     console.info('window.gtag is not defined or is not a function.');
 }
 
-const COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED = {
-    necessary: true,
-    preferences: COOKIE_CONSENT_ALLOW_ALL,
-    statistics: COOKIE_CONSENT_ALLOW_ALL,
-    marketing: COOKIE_CONSENT_ALLOW_ALL,
-    gc: COOKIE_CONSENT_GOOGLE_PARTNER
-};
+let COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED = {};
+let COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE = {};
+let COOKIE_CONSENT_CATEGORY_TYPES = {};
 
+window.cg__updateDataObjetsWithUserCustomSettings = () => {
+    //return COOKIE_CONSENT_CATEGORY_TYPES;
+    // console.log('COOKIE_CONSENT_ALLOW_ALL in cg__updateDataObjetsWithUserCustomSettings: ');
+    // console.log(COOKIE_CONSENT_ALLOW_ALL)
 
-const COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE = {
-    necessary: true,
-    optional: COOKIE_CONSENT_ALLOW_ALL,
-    gc: COOKIE_CONSENT_GOOGLE_PARTNER
-};
+    COOKIE_CONSENT_GOOGLE_PARTNER = {
+        ad_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+        ad_user_data: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+        ad_personalization: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+        analytics_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+        personalization_storage: COOKIE_CONSENT_ALLOW_ALL ? "granted" : "denied",
+        functionality_storage: "granted",
+        security_storage: "granted"
+    };
 
+    COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED = {
+        necessary: true,
+        preferences: COOKIE_CONSENT_ALLOW_ALL,
+        statistics: COOKIE_CONSENT_ALLOW_ALL,
+        marketing: COOKIE_CONSENT_ALLOW_ALL,
+        gc: COOKIE_CONSENT_GOOGLE_PARTNER
+    };
 
-const COOKIE_CONSENT_CATEGORY_TYPES = COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE : COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED;
+    COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE = {
+        necessary: true,
+        optional: COOKIE_CONSENT_ALLOW_ALL,
+        gc: COOKIE_CONSENT_GOOGLE_PARTNER
+    };
+
+    COOKIE_CONSENT_CATEGORY_TYPES = COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ? COOKIE_CONSENT_CATEGORY_TYPES_SIMPLE : COOKIE_CONSENT_CATEGORY_TYPES_EXTENDED;
+}
+
+const svgClose =`<svg xmlns="http://www.w3.org/2000/svg"  width="20" viewBox="0 0 384 512"><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>`
 
 const svgShieldCookie =`<svg id="${COOKIE_NAME}-svg1" class="custom" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0zm0 0h24v24H0z"/><path class="custom" fill="#000" d="M11.14 16L7.3 12.16l1.41-1.42 2.43 2.42L15.3 9l1.42 1.41L11.14 16zM12 4.24l6 3v4.1c0 3.9-2.55 7.5-6 8.59-3.45-1.09-6-4.7-6-8.59v-4.1l6-3M12 2L4 6v5.33c0 4.93 3.41 9.55 8 10.67 4.59-1.12 8-5.73 8-10.67V6l-8-4z"/></svg>
 `
@@ -148,6 +171,11 @@ window.cg__hasConsentedToCookies = () => {
     return localStorage.getItem(LOCAL_STORAGE_COOKIE_NAME) === 'true';
 }
 
+// Check if the user has consented to cookies
+window.cg__cookieConsentExists = () => {
+    return (document.cookie.indexOf(COOKIE_NAME) !== -1);
+}
+
 // Set consent for cookies into localStorage
 window.cg__setCookieConsentToLocalStorage = (consent) => {
     localStorage.setItem(LOCAL_STORAGE_COOKIE_NAME, consent ? 'true' : 'false');
@@ -194,6 +222,8 @@ window.cg__denyOrAllowAllCookieCategorySession = (action) => {
 }
 
 window.cg__initiateCookieCategorySession = () => {
+    // console.log('COOKIE_CONSENT_CATEGORY_TYPES in cg__initiateCookieCategorySession');
+    // console.log(COOKIE_CONSENT_CATEGORY_TYPES);
     // Initialize cookie consent object
     if (document.cookie.indexOf(COOKIE_NAME) === -1) {
         window.cg__storeCookieValue(COOKIE_CONSENT_CATEGORY_TYPES);
@@ -253,6 +283,14 @@ window.cg__setCookieCategoryConsent = (category, overWriteAction = null) => {
     }
 }
 
+window.cg__handleClickOnClose = () => {
+    console.log('COOKIE_CONSENT_OPTIONAL on cg__handleClickOnClose: ');
+    console.log(COOKIE_CONSENT_OPTIONAL);
+    if (COOKIE_CONSENT_OPTIONAL) {
+        window.cg__closeCookieModal();
+    }
+}
+
 window.cg__storeCookieValue = (updatedObject) => {
     // Serialize the updated object back to a string
     const updatedCookieConsentString = JSON.stringify(updatedObject);
@@ -260,7 +298,7 @@ window.cg__storeCookieValue = (updatedObject) => {
     expirationDate.setFullYear(expirationDate.getFullYear() + 1);
 
     // Update the cookie with the updated string
-    document.cookie = `${COOKIE_NAME}=${updatedCookieConsentString}; expires=${expirationDate.toUTCString()}; path=/; SameSite=None; Secure`;
+    document.cookie = `${COOKIE_NAME}=${updatedCookieConsentString}; expires=${expirationDate.toUTCString()}; path=/; ${IS_LOCAL_DEV ? '' : 'SameSite=None; Secure'}`;
 }
 
 window.cg__setGCConsent = (category, action, cookieConsentObject) => {
@@ -396,8 +434,10 @@ window.cg__displayCookieConsentButton = () => {
     // Create cookie consent button
     const cookieConsentButton = document.createElement('div');
     cookieConsentButton.innerHTML = `<div id="___cookieButtonConsent" class="___cookieConsent__${WIDGET_BUTTON_POSITION}" onclick="window.cg__showCookieConsentModal()"></div>`;
-    document.body.appendChild(cookieConsentButton);
-    document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', WIDGET_BUTTON_ICON === 'default' ? svgCCookie : svgShieldCookie);
+    if (COOKIE_CONSENT_SHOW_ALWAYS) {
+        document.body.appendChild(cookieConsentButton);
+        document.querySelector('div#___cookieButtonConsent').insertAdjacentHTML('beforeend', WIDGET_BUTTON_ICON === 'default' ? svgCCookie : svgShieldCookie);
+    }
 }
 
 // Function to display cookie consent modal
@@ -476,9 +516,14 @@ window.cg__displayCookieConsentModal = () => {
     // Create cookie consent modal
     const modal = document.createElement('div');
     modal.id = "___cookieConsent__ModalConsent";
+    modal.className = "___cookieConsent__" + COOKIE_CONSENT_BANNER_TYPE;
     modal.innerHTML = `
         <div id="___cookieConsent__ModalWrapper">
-            <h2 id="___cookieConsent__Title">${currentGeneralTexts?.generalTitle}</h2>
+            <h2 id="___cookieConsent__Title">
+                <span>${currentGeneralTexts?.generalTitle}</span>
+                ${COOKIE_CONSENT_OPTIONAL ? `<div id="___cookieConsent__Close" onclick="window.cg__handleClickOnClose()">${svgClose}</div>` : ``}
+            </h2>
+            
             <div id="___cookieConsent__TabButtons">
                 <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Consent')" id="___cookieConsent__ConsentTabButton">${currentConsentTexts?.title}</div>
                 <div class="___cookieConsent__Tab" onclick="window.cg__showTab('___cookieConsent__Details')" id="___cookieConsent__DetailsTabButton">${currentDetailTexts?.title}</div>
@@ -681,6 +726,31 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
     if (data?.popup_lang) {
         WIDGET_LANGUAGE = data?.popup_lang.toLowerCase();
     }
+    if (data?.on_off_status) {
+        COOKIE_CONSENT_ALLOW_ALL = data?.on_off_status === 'checked';
+        // console.log('COOKIE_CONSENT_ALLOW_ALL: ');
+        // console.log(COOKIE_CONSENT_ALLOW_ALL);
+    }
+    if (data?.consent_type) {
+        COOKIE_CONSENT_OPTIONAL = data?.consent_type === 'optional';
+        // console.log('COOKIE_CONSENT_OPTIONAL: ');
+        // console.log(COOKIE_CONSENT_OPTIONAL);
+    }
+
+    if (data?.banner_type) {
+        COOKIE_CONSENT_BANNER_TYPE = data?.banner_type;
+        // console.log('COOKIE_CONSENT_BANNER_TYPE: ');
+        // console.log(COOKIE_CONSENT_BANNER_TYPE);
+    }
+    if (data?.icon_on) {
+        if (COOKIE_CONSENT_BANNER_TYPE === 'bottom-banner') {
+            COOKIE_CONSENT_SHOW_ALWAYS = false;
+        } else {
+            COOKIE_CONSENT_SHOW_ALWAYS = data?.icon_on === 'yes';
+        }
+        // console.log('COOKIE_CONSENT_SHOW_ALWAYS: ');
+        // console.log(COOKIE_CONSENT_SHOW_ALWAYS);
+    }
 }
 
 // Function to show modal from button
@@ -729,8 +799,9 @@ document.addEventListener('DOMContentLoaded', function() {
         //console.log('v:' + isClientTokenValid);
         if (isClientTokenValid) {
             window.cg__addCustomStyleSheetsCookieConsent();
+            window.cg__updateDataObjetsWithUserCustomSettings();
             window.cg__displayCookieConsentButton();
-            if (!window.cg__hasConsentedToCookies()) {
+            if (!window.cg__hasConsentedToCookies() || !window.cg__cookieConsentExists()) {
                 window.cg__displayCookieConsentModal();
             }
             window.cg__initiateCookieCategorySession();
