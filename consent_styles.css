@@ -89,7 +89,7 @@ body.___cookieConsent_opened {
 
 /* Media query for screens with maximum width of 768px (typical for mobile devices) */
 @media screen and (max-width: 768px) {
-    #___cookieConsent__ModalConsent {
+    #___cookieConsent__ModalConsent, #___cookieConsent__ModalConsent.___cookieConsent__pop-up {
         position: fixed;
         box-sizing: border-box;
         top: unset;
