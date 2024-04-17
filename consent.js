@@ -21,6 +21,7 @@ let COOKIE_CONSENT_ALLOW_ALL = null;
 let COOKIE_CONSENT_OPTIONAL = null;
 let COOKIE_CONSENT_SHOW_ALWAYS = null;
 let COOKIE_CONSENT_BANNER_TYPE = null;
+let COOKIE_CONSENT_WIDGET_DETAILS = null;
 
 import { languageTexts } from './consent_texts.js';
 
@@ -636,32 +637,39 @@ window.cg__displayCookieDetails = () => {
     let cookies = document.cookie.split(';'); // Split cookies into an array
     let cookieDetailsHtml = ''; // Variable to store the HTML for the cookie details
 
-    // Loop through each cookie
-    cookies.forEach((cookie) => {
-        // Trim any leading or trailing whitespace
-        cookie = cookie.trim();
+    if (COOKIE_CONSENT_WIDGET_DETAILS.length) {
+        COOKIE_CONSENT_WIDGET_DETAILS.forEach((item) => {
+            cookieDetailsHtml += `${item}</br>`;
+        });
+        cookieDetailsHtml += `<p></p>`;
+    } else {
+        // Loop through each cookie
+        cookies.forEach((cookie) => {
+            // Trim any leading or trailing whitespace
+            cookie = cookie.trim();
 
-        // Split the cookie into name and value
-        let parts = cookie.split('=');
-        let name = parts[0].trim(); // Get cookie name
-        let value = parts.slice(1).join('=').trim(); // Get cookie value
+            // Split the cookie into name and value
+            let parts = cookie.split('=');
+            let name = parts[0].trim(); // Get cookie name
+            let value = parts.slice(1).join('=').trim(); // Get cookie value
 
-        // Determine the type of cookie
-        let type = '';
-        if (name === 'cookieConsentGlobalHolder') {
-            type = 'necessary';
-        } else if (name === 'PHPSESSID') {
-            type = 'necessary';
-        } else {
-            // Add logic to determine other types based on cookie name or value if needed
-            type = 'optional';
-        }
+            // Determine the type of cookie
+            let type = '';
+            if (name === 'cookieConsentGlobalHolder') {
+                type = 'necessary';
+            } else if (name === 'PHPSESSID') {
+                type = 'necessary';
+            } else {
+                // Add logic to determine other types based on cookie name or value if needed
+                type = 'optional';
+            }
 
-        // Create HTML for the cookie details and add it to the cookieDetailsHtml variable
-        cookieDetailsHtml += '<b>Cookie Name:</b> ' + name + '<br>';
-        cookieDetailsHtml += '<b>Value:</b> ' + value + '<br>';
-        //cookieDetailsHtml += '<b>Type:</b> ' + type + '<br><br>';
-    });
+            // Create HTML for the cookie details and add it to the cookieDetailsHtml variable
+            cookieDetailsHtml += '<b>Cookie Name:</b> ' + name + '<br>';
+            cookieDetailsHtml += '<b>Value:</b> ' + value + '<br>';
+            //cookieDetailsHtml += '<b>Type:</b> ' + type + '<br><br>';
+        });
+    }
 
     // Display the cookie details in the Details tab
     document.getElementById('___cookieConsent__DetailsTab').innerHTML = '<div id="___cookieConsent__Wrapper">' + cookieDetailsHtml + '</div>';
@@ -748,6 +756,11 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
         COOKIE_CONSENT_SHOW_ALWAYS = data?.icon_on === 'yes';
         // console.log('COOKIE_CONSENT_SHOW_ALWAYS: ');
         // console.log(COOKIE_CONSENT_SHOW_ALWAYS);
+    }
+    if (data?.widget_details) {
+        COOKIE_CONSENT_WIDGET_DETAILS = data?.widget_details;
+        // console.log('COOKIE_CONSENT_WIDGET_DETAILS: ');
+        // console.log(COOKIE_CONSENT_WIDGET_DETAILS);
     }
 }
 
