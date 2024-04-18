@@ -514,7 +514,7 @@ window.cg__displayCookieConsentModal = () => {
         </label>
     </div>`;
 
-    const SIMPLE_LIST_BUTTONS = `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>`;
+    const SIMPLE_LIST_BUTTONS = `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" id="___cookieConsent__cg__denyAllCookies"  onclick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>`;
 
     // Create cookie consent modal
     const modal = document.createElement('div');
@@ -555,9 +555,9 @@ window.cg__displayCookieConsentModal = () => {
             <div id="___cookieConsent__footerButtons">
                 ${COOKIE_CONSENT_CATEGORY_SIMPLE_TYPE ?
                 SIMPLE_LIST_BUTTONS :
-                `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onClick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>
-                <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" onclick="window.cg__acceptSelectionCookies()">${currentGeneralTexts?.acceptSelectionButton}</button>
-                <button class="___cookieConsent__consentButton" onClick="window.cg__allowAllCookies()">${currentGeneralTexts?.acceptAllButton}</button>`
+                `<button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" id="___cookieConsent__cg__denyAllCookies" onClick="window.cg__denyAllCookies()">${currentGeneralTexts?.rejectAllButton}</button>
+                <button class="___cookieConsent__consentButton ___cookieConsent__borderOnly" id="___cookieConsent__cg__acceptSelectionCookies"  onclick="window.cg__acceptSelectionCookies()">${currentGeneralTexts?.acceptSelectionButton}</button>
+                <button class="___cookieConsent__consentButton" id="___cookieConsent__cg__allowAllCookies"  onClick="window.cg__allowAllCookies()">${currentGeneralTexts?.acceptAllButton}</button>`
                 }        
             </div>
             <div id="___cookieConsent__footerPoweredBy">${currentGeneralTexts?.poweredByText} <a target="_blank" href="https://cookie-guard.ro" title="${currentGeneralTexts?.poweredByText} cookie-guard.ro"> cookie-guard.ro</a></div>
