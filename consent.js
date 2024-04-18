@@ -720,7 +720,7 @@ window.cg__checkClientHostname = (dataURL) => {
 
 // Function to show modal from button
 window.cg__clientCustomDefinitionsByClientToken = (data) => {
-    console.log(data);
+    //console.log(data);
     if (data?.banner_color) {
         WIDGET_MAIN_COLOR = data.banner_color;
     }
@@ -782,7 +782,7 @@ window.cg__checkClientToken = async () => {
                 }
                 if (data?.website && data?.valid === true) {
                     if (cg__checkClientHostname(data?.website)) {
-                        console.info('Token is present and valid');
+                        //console.info('Token is present and valid');
                         isValid = true;
                     } else {
                         console.warn('Wrong token  for ' + window.location.hostname);
