@@ -340,8 +340,12 @@ body.___cookieConsent_opened {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
-#___cookieConsent__ConsentTabText div a {
+#___cookieConsent__ConsentTabText div a, #___cookieConsent__DetailsTab a, #___cookieConsent__AboutTab a  {
     color: var(--WIDGET_MAIN_COLOR);
+}
+
+#___cookieConsent__ConsentTabText div a:hover, #___cookieConsent__DetailsTab a:hover, #___cookieConsent__AboutTab a:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
