@@ -768,10 +768,10 @@ window.cg__clientCustomDefinitionsByClientToken = (data) => {
 window.cg__checkClientToken = async () => {
     //console.log('-cct-Y');
     let isValid = false;
-    let getCookieGuardScriptById = document.getElementById("cookieGuard");
+    const getCookieGuardScriptById = document.querySelector('script#cookieGuard');
     if (getCookieGuardScriptById) {
         // Get the value of the data-token attribute
-        let dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
+        const dataToken = getCookieGuardScriptById.getAttribute("data-token").toLowerCase();
         // Fetch the individual token file
         try {
             const response = await fetch(COOKIE_GUARD_URL + '/consent/tokens/' + dataToken + '.json');
