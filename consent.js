@@ -679,8 +679,7 @@ window.cg__dispatchConsentEvent = (type = null) => {
     let userConsentClickTriggered = new CustomEvent('userConsentClickTriggered', {
         detail: { type }
     });
-
-// Dispatch the custom event on a target element or on the document
+    // Dispatch the custom event on a target element or on the document
     document.dispatchEvent(userConsentClickTriggered);
 }
 
