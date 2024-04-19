@@ -675,11 +675,21 @@ window.cg__displayCookieDetails = () => {
     document.getElementById('___cookieConsent__DetailsTab').innerHTML = '<div id="___cookieConsent__Wrapper">' + cookieDetailsHtml + '</div>';
 }
 
+window.cg__dispatchConsentEvent = (type = null) => {
+    let userConsentClickTriggered = new CustomEvent('userConsentClickTriggered', {
+        detail: { type }
+    });
+
+// Dispatch the custom event on a target element or on the document
+    document.dispatchEvent(userConsentClickTriggered);
+}
+
 // Function to deny cookies
 window.cg__acceptSelectionCookies = () => {
     window.cg__setCookieConsentToLocalStorage(true);
     window.cg__send_gtmConsentDataObject();
     window.cg__closeCookieModal();
+    window.cg__dispatchConsentEvent('selection');
 }
 
 // Function to deny all cookies
@@ -689,6 +699,7 @@ window.cg__denyAllCookies = () => {
     window.cg__denyOrAllowAllCookieCategorySession(false);
     window.cg__send_gtmConsentDataObject();
     window.cg__closeCookieModal();
+    window.cg__dispatchConsentEvent('denyAll');
 }
 
 // Function to allow all cookies
@@ -697,6 +708,7 @@ window.cg__allowAllCookies = () => {
     window.cg__denyOrAllowAllCookieCategorySession(true);
     window.cg__send_gtmConsentDataObject();
     window.cg__closeCookieModal();
+    window.cg__dispatchConsentEvent('allowAll');
 }
 
 // Function to show modal from button
