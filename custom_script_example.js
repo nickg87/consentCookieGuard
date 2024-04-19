@@ -16,7 +16,7 @@ let __sendDataLayer = (type) => {
         statistics: defaultValue,
         marketing: defaultValue
     }
-    if (type === 'selection') {
+    if (type === 'selection' || type === 'closeModal') {
         const cookieConsentCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('cookieConsentGlobalHolder='));
         // If the cookie exists
         if (cookieConsentCookie) {

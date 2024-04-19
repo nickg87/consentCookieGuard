@@ -285,10 +285,11 @@ window.cg__setCookieCategoryConsent = (category, overWriteAction = null) => {
 }
 
 window.cg__handleClickOnClose = () => {
-    console.log('COOKIE_CONSENT_OPTIONAL on cg__handleClickOnClose: ');
-    console.log(COOKIE_CONSENT_OPTIONAL);
+    // console.log('COOKIE_CONSENT_OPTIONAL on cg__handleClickOnClose: ');
+    // console.log(COOKIE_CONSENT_OPTIONAL);
     if (COOKIE_CONSENT_OPTIONAL) {
         window.cg__closeCookieModal();
+        window.cg__dispatchConsentEvent('closeModal');
     }
 }
 
@@ -589,8 +590,12 @@ window.cg__displayCookieConsentModal = () => {
 
 // Function to close cookie consent modal
 window.cg__closeCookieModal = () => {
-    document.getElementById('___cookieConsent__ModalConsent').remove();
-    document.getElementById('___cookieConsentBackdrop').remove();
+    let modalConsent = document.getElementById('___cookieConsent__ModalConsent');
+    let backdropConsent = document.getElementById('___cookieConsentBackdrop');
+    modalConsent.remove();
+    if (backdropConsent) {
+        backdropConsent.remove();
+    }
     document.body.classList.remove('___cookieConsent_opened');
 }
 
