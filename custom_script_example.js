@@ -16,7 +16,7 @@ let __sendDataLayer = (type) => {
         statistics: defaultValue,
         marketing: defaultValue
     }
-    if (type === 'selection' || type === 'closeModal') {
+    if (type === 'selection') {
         const cookieConsentCookie = document.cookie.split(';').find(cookie => cookie.trim().startsWith('cookieConsentGlobalHolder='));
         // If the cookie exists
         if (cookieConsentCookie) {
@@ -25,6 +25,13 @@ let __sendDataLayer = (type) => {
             ['preferences', 'statistics', 'marketing'].forEach(cookieCategory => {
                 dataLayerDefaultObject[cookieCategory] = cookieConsentObject[cookieCategory] ? 'ON' : 'OFF';
             });
+        }
+    }
+    if (type === 'closeModal') {
+        dataLayerDefaultObject = {
+            event: 'cookie_guard_consent_interaction',
+            url: window.location.href,
+            buttonAction: type
         }
     }
 
